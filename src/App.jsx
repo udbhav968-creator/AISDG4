@@ -8,12 +8,19 @@ import AuthorityDashboard from './components/AuthorityDashboard';
 import DiscreetSOSModal from './components/DiscreetSOSModal';
 import SimulationBar from './components/SimulationBar';
 
+import VoiceDistressListener from './components/VoiceDistressListener';
+import StealthCalculator from './components/StealthCalculator';
+import PinkCompanion from './components/PinkCompanion';
+import OfflineMeshRelay from './components/OfflineMeshRelay';
+import EvidenceVault from './components/EvidenceVault';
+import CommunitySafetyAudit from './components/CommunitySafetyAudit';
+
 import { mockNightRoutes } from './data/mockRoutes';
 import { mockTransitVehicles } from './data/mockTransitData';
 import { mockSafeHavens, mockIncidents } from './data/mockSafeHavens';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('transit'); // 'transit', 'routes', 'safehavens', 'authority'
+  const [activeTab, setActiveTab] = useState('transit'); // 'transit', 'routes', 'advanced', 'safehavens', 'authority'
   
   // Data States
   const [routes, setRoutes] = useState(mockNightRoutes);
@@ -26,6 +33,7 @@ export default function App() {
   
   // UI & Simulation States
   const [isSOSModalOpen, setIsSOSModalOpen] = useState(false);
+  const [isStealthCalculatorOpen, setIsStealthCalculatorOpen] = useState(false);
   const [isBlackoutSimulated, setIsBlackoutSimulated] = useState(false);
   const [wearableConnected, setWearableConnected] = useState(true);
   const [mapCenter, setMapCenter] = useState([28.6105, 77.2185]);
@@ -82,7 +90,6 @@ export default function App() {
     setIsBlackoutSimulated(nextBlackoutState);
 
     if (nextBlackoutState) {
-      // Degrade shortcut route safety, upgrade safest route priority
       setRoutes((prev) =>
         prev.map((r) => {
           if (r.id === 'route-fastest') {
@@ -100,7 +107,6 @@ export default function App() {
       setSelectedRouteId('route-safest');
       setActiveTab('routes');
     } else {
-      // Reset routes to normal
       setRoutes(mockNightRoutes);
     }
   };
@@ -136,6 +142,7 @@ export default function App() {
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         onTriggerSOS={handleTriggerWearableSOS}
+        onToggleStealth={() => setIsStealthCalculatorOpen(true)}
         activeAlertCount={activeAlerts.length}
         wearableConnected={wearableConnected}
       />
@@ -191,6 +198,16 @@ export default function App() {
               />
             )}
 
+            {activeTab === 'advanced' && (
+              <div className="space-y-6">
+                <VoiceDistressListener onAutoTriggerSOS={handleTriggerWearableSOS} />
+                <PinkCompanion />
+                <OfflineMeshRelay />
+                <EvidenceVault />
+                <CommunitySafetyAudit />
+              </div>
+            )}
+
             {activeTab === 'safehavens' && (
               <SafeHavenRadar
                 safeHavens={safeHavens}
@@ -225,6 +242,13 @@ export default function App() {
         onClose={() => setIsSOSModalOpen(false)}
         onAlertDispatched={handleAlertDispatched}
         activeVehicle={vehicles.find((v) => v.id === selectedVehicleId)}
+      />
+
+      {/* Stealth Duress Calculator */}
+      <StealthCalculator
+        isOpen={isStealthCalculatorOpen}
+        onClose={() => setIsStealthCalculatorOpen(false)}
+        onSecretSOSTrigger={handleTriggerWearableSOS}
       />
     </div>
   );

@@ -9,13 +9,17 @@ import {
   Activity,
   AlertTriangle,
   Siren,
-  Sparkles
+  Sparkles,
+  Eye,
+  FileText,
+  Mic
 } from 'lucide-react';
 
 export default function Navbar({ 
   activeTab, 
   setActiveTab, 
   onTriggerSOS, 
+  onToggleStealth,
   activeAlertCount, 
   wearableConnected 
 }) {
@@ -44,50 +48,62 @@ export default function Navbar({
         <nav className="hidden md:flex items-center p-1 bg-zinc-900/80 border border-zinc-800 rounded-xl">
           <button
             onClick={() => setActiveTab('transit')}
-            className={`flex items-center gap-2 px-4 py-2 text-xs font-semibold rounded-lg transition-all ${
+            className={`flex items-center gap-2 px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all ${
               activeTab === 'transit'
                 ? 'bg-gradient-to-r from-pink-600 to-rose-600 text-white shadow-md'
                 : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/50'
             }`}
           >
-            <Bus className="w-4 h-4" />
-            <span>Transit Safety (PS-B06)</span>
+            <Bus className="w-3.5 h-3.5" />
+            <span>Transit Safety</span>
           </button>
 
           <button
             onClick={() => setActiveTab('routes')}
-            className={`flex items-center gap-2 px-4 py-2 text-xs font-semibold rounded-lg transition-all ${
+            className={`flex items-center gap-2 px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all ${
               activeTab === 'routes'
                 ? 'bg-gradient-to-r from-pink-600 to-rose-600 text-white shadow-md'
                 : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/50'
             }`}
           >
-            <Navigation className="w-4 h-4" />
-            <span>Night Safe-Routes (PS-B07)</span>
+            <Navigation className="w-3.5 h-3.5" />
+            <span>Night Routes</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('advanced')}
+            className={`flex items-center gap-2 px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all ${
+              activeTab === 'advanced'
+                ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md'
+                : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/50'
+            }`}
+          >
+            <Mic className="w-3.5 h-3.5 text-purple-400" />
+            <span>AI Voice & Vault</span>
           </button>
 
           <button
             onClick={() => setActiveTab('safehavens')}
-            className={`flex items-center gap-2 px-4 py-2 text-xs font-semibold rounded-lg transition-all ${
+            className={`flex items-center gap-2 px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all ${
               activeTab === 'safehavens'
                 ? 'bg-gradient-to-r from-pink-600 to-rose-600 text-white shadow-md'
                 : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/50'
             }`}
           >
-            <MapPin className="w-4 h-4" />
-            <span>Safe Havens Radar</span>
+            <MapPin className="w-3.5 h-3.5" />
+            <span>Safe Havens</span>
           </button>
 
           <button
             onClick={() => setActiveTab('authority')}
-            className={`flex items-center gap-2 px-4 py-2 text-xs font-semibold rounded-lg transition-all relative ${
+            className={`flex items-center gap-2 px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all relative ${
               activeTab === 'authority'
-                ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md'
+                ? 'bg-gradient-to-r from-red-600 to-rose-600 text-white shadow-md'
                 : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/50'
             }`}
           >
-            <Siren className="w-4 h-4 text-purple-400" />
-            <span>Control Dashboard</span>
+            <Siren className="w-3.5 h-3.5 text-red-400" />
+            <span>Control Room</span>
             {activeAlertCount > 0 && (
               <span className="px-1.5 py-0.5 text-[10px] font-extrabold bg-red-500 text-white rounded-full animate-bounce">
                 {activeAlertCount}
@@ -96,15 +112,17 @@ export default function Navbar({
           </button>
         </nav>
 
-        {/* Right Status Badges & Emergency Trigger */}
-        <div className="flex items-center gap-3">
-          {/* Wearable Connection Status Indicator */}
-          <div className="hidden xl:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-xs">
-            <Watch className={`w-3.5 h-3.5 ${wearableConnected ? 'text-emerald-400 animate-pulse' : 'text-zinc-500'}`} />
-            <span className="text-zinc-300">
-              {wearableConnected ? 'Smartwatch Active' : 'Wearable Offline'}
-            </span>
-          </div>
+        {/* Right Status Badges & Actions */}
+        <div className="flex items-center gap-2.5">
+          {/* Stealth Calculator Cover Mode Button */}
+          <button
+            onClick={onToggleStealth}
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-zinc-300 text-xs font-bold rounded-xl"
+            title="Toggle Calculator Duress Cover Mode"
+          >
+            <Eye className="w-3.5 h-3.5 text-emerald-400" />
+            <span className="hidden sm:inline">Stealth Cover</span>
+          </button>
 
           {/* Discreet Emergency SOS Button */}
           <button
@@ -115,42 +133,6 @@ export default function Navbar({
             <span>DISCREET SOS</span>
           </button>
         </div>
-      </div>
-
-      {/* Mobile Tab Switcher */}
-      <div className="md:hidden flex items-center justify-between mt-3 pt-2 border-t border-zinc-800/60 overflow-x-auto gap-2">
-        <button
-          onClick={() => setActiveTab('transit')}
-          className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg whitespace-nowrap ${
-            activeTab === 'transit' ? 'bg-pink-600 text-white' : 'text-zinc-400 bg-zinc-900'
-          }`}
-        >
-          <Bus className="w-3.5 h-3.5" /> Transit Safety
-        </button>
-        <button
-          onClick={() => setActiveTab('routes')}
-          className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg whitespace-nowrap ${
-            activeTab === 'routes' ? 'bg-pink-600 text-white' : 'text-zinc-400 bg-zinc-900'
-          }`}
-        >
-          <Navigation className="w-3.5 h-3.5" /> Night Routes
-        </button>
-        <button
-          onClick={() => setActiveTab('safehavens')}
-          className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg whitespace-nowrap ${
-            activeTab === 'safehavens' ? 'bg-pink-600 text-white' : 'text-zinc-400 bg-zinc-900'
-          }`}
-        >
-          <MapPin className="w-3.5 h-3.5" /> Safe Radar
-        </button>
-        <button
-          onClick={() => setActiveTab('authority')}
-          className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg whitespace-nowrap ${
-            activeTab === 'authority' ? 'bg-purple-600 text-white' : 'text-zinc-400 bg-zinc-900'
-          }`}
-        >
-          <Siren className="w-3.5 h-3.5" /> Control Room
-        </button>
       </div>
     </header>
   );
