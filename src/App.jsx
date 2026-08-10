@@ -1,0 +1,231 @@
+import React, { useState } from 'react';
+import Navbar from './components/Navbar';
+import MapView from './components/MapView';
+import RoutePlanner from './components/RoutePlanner';
+import TransitTracker from './components/TransitTracker';
+import SafeHavenRadar from './components/SafeHavenRadar';
+import AuthorityDashboard from './components/AuthorityDashboard';
+import DiscreetSOSModal from './components/DiscreetSOSModal';
+import SimulationBar from './components/SimulationBar';
+
+import { mockNightRoutes } from './data/mockRoutes';
+import { mockTransitVehicles } from './data/mockTransitData';
+import { mockSafeHavens, mockIncidents } from './data/mockSafeHavens';
+
+export default function App() {
+  const [activeTab, setActiveTab] = useState('transit'); // 'transit', 'routes', 'safehavens', 'authority'
+  
+  // Data States
+  const [routes, setRoutes] = useState(mockNightRoutes);
+  const [selectedRouteId, setSelectedRouteId] = useState('route-safest');
+  const [vehicles, setVehicles] = useState(mockTransitVehicles);
+  const [selectedVehicleId, setSelectedVehicleId] = useState('bus-512');
+  const [safeHavens, setSafeHavens] = useState(mockSafeHavens);
+  const [incidents, setIncidents] = useState(mockIncidents);
+  const [activeAlerts, setActiveAlerts] = useState([]);
+  
+  // UI & Simulation States
+  const [isSOSModalOpen, setIsSOSModalOpen] = useState(false);
+  const [isBlackoutSimulated, setIsBlackoutSimulated] = useState(false);
+  const [wearableConnected, setWearableConnected] = useState(true);
+  const [mapCenter, setMapCenter] = useState([28.6105, 77.2185]);
+  const [activeAlert, setActiveAlert] = useState(null);
+
+  // --- Handlers & Simulators --- //
+
+  // PS-B06 Simulator 1: Route Deviation
+  const handleSimulateBusDeviation = (vehicleId = 'cab-shared-942') => {
+    setVehicles((prev) =>
+      prev.map((v) => {
+        if (v.id === vehicleId || v.id === 'cab-shared-942') {
+          return {
+            ...v,
+            geofenceStatus: 'DEVIATED',
+            currentLocation: [28.5910, 77.1960], // Off-route location
+            speed: '12 km/h (Straying off-path)',
+            stopSafetyRating: 'CRITICAL LOW (24/100)',
+            nextStop: 'UNAUTHORIZED OFF-ROUTE ALLEY'
+          };
+        }
+        return v;
+      })
+    );
+    setSelectedVehicleId('cab-shared-942');
+    setMapCenter([28.5910, 77.1960]);
+    setIsSOSModalOpen(true);
+  };
+
+  // PS-B06 Simulator 2: Prolonged Stop
+  const handleSimulateCabStop = (vehicleId = 'cab-shared-942') => {
+    setVehicles((prev) =>
+      prev.map((v) => {
+        if (v.id === vehicleId || v.id === 'cab-shared-942') {
+          return {
+            ...v,
+            geofenceStatus: 'PROLONGED_STOP',
+            currentLocation: [28.5910, 77.1960],
+            speed: '0 km/h (Halted for 4m 30s)',
+            stopSafetyRating: 'UNSAFE HALT (32/100)'
+          };
+        }
+        return v;
+      })
+    );
+    setSelectedVehicleId('cab-shared-942');
+    setMapCenter([28.5910, 77.1960]);
+    setIsSOSModalOpen(true);
+  };
+
+  // PS-B07 Simulator: Dynamic Streetlight Outage & Auto-Reroute
+  const handleSimulateBlackout = () => {
+    const nextBlackoutState = !isBlackoutSimulated;
+    setIsBlackoutSimulated(nextBlackoutState);
+
+    if (nextBlackoutState) {
+      // Degrade shortcut route safety, upgrade safest route priority
+      setRoutes((prev) =>
+        prev.map((r) => {
+          if (r.id === 'route-fastest') {
+            return {
+              ...r,
+              safetyScore: 32,
+              lightingLevel: '12% CRITICAL BLACKOUT',
+              badge: 'DANGER: BLACKOUT DETECTED',
+              explanation: '⚠️ CRITICAL: Unannounced transformer failure caused 100% lighting loss on shortcut alley. System forcefully advises against this path!'
+            };
+          }
+          return r;
+        })
+      );
+      setSelectedRouteId('route-safest');
+      setActiveTab('routes');
+    } else {
+      // Reset routes to normal
+      setRoutes(mockNightRoutes);
+    }
+  };
+
+  // Trigger Wearable SOS
+  const handleTriggerWearableSOS = () => {
+    setIsSOSModalOpen(true);
+  };
+
+  // Dispatch alert callback from SOS Modal
+  const handleAlertDispatched = (newAlert) => {
+    setActiveAlerts((prev) => [newAlert, ...prev]);
+    setActiveAlert(newAlert);
+  };
+
+  // Update alert status in Control Room
+  const handleUpdateAlertStatus = (alertId, newStatus) => {
+    setActiveAlerts((prev) =>
+      prev.map((a) => (a.id === alertId ? { ...a, status: newStatus } : a))
+    );
+  };
+
+  // Safe haven navigation guide handler
+  const handleNavigateToHaven = (coords) => {
+    setMapCenter(coords);
+    setActiveTab('transit');
+  };
+
+  return (
+    <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col font-sans pb-24">
+      {/* Top Navbar */}
+      <Navbar
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        onTriggerSOS={handleTriggerWearableSOS}
+        activeAlertCount={activeAlerts.length}
+        wearableConnected={wearableConnected}
+      />
+
+      {/* Main App Container */}
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 lg:px-8 py-6 space-y-8">
+        
+        {/* Top Split Layout: Interactive Map View + Active Control View */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          
+          {/* Left / Center Map Engine (7 Cols) */}
+          <div className="lg:col-span-7">
+            <MapView
+              routes={routes}
+              selectedRouteId={selectedRouteId}
+              vehicles={vehicles}
+              selectedVehicleId={selectedVehicleId}
+              safeHavens={safeHavens}
+              incidents={incidents}
+              mapCenter={mapCenter}
+              showHeatmap={true}
+              activeAlert={activeAlert}
+            />
+          </div>
+
+          {/* Right Panel View (5 Cols): Dynamic based on Active Tab */}
+          <div className="lg:col-span-5 space-y-6 max-h-[750px] overflow-y-auto pr-1">
+            {activeTab === 'transit' && (
+              <TransitTracker
+                vehicles={vehicles}
+                selectedVehicleId={selectedVehicleId}
+                onSelectVehicle={(id) => {
+                  setSelectedVehicleId(id);
+                  const veh = vehicles.find((v) => v.id === id);
+                  if (veh) setMapCenter(veh.currentLocation);
+                }}
+                onSimulateDeviation={handleSimulateBusDeviation}
+                onSimulateProlongedStop={handleSimulateCabStop}
+              />
+            )}
+
+            {activeTab === 'routes' && (
+              <RoutePlanner
+                routes={routes}
+                selectedRouteId={selectedRouteId}
+                onSelectRoute={(id) => {
+                  setSelectedRouteId(id);
+                  const rt = routes.find((r) => r.id === id);
+                  if (rt && rt.path.length > 0) setMapCenter(rt.path[0]);
+                }}
+                onSimulateReroute={handleSimulateBlackout}
+                isBlackoutSimulated={isBlackoutSimulated}
+              />
+            )}
+
+            {activeTab === 'safehavens' && (
+              <SafeHavenRadar
+                safeHavens={safeHavens}
+                onNavigateToHaven={handleNavigateToHaven}
+              />
+            )}
+
+            {activeTab === 'authority' && (
+              <AuthorityDashboard
+                activeAlerts={activeAlerts}
+                onUpdateAlertStatus={handleUpdateAlertStatus}
+              />
+            )}
+          </div>
+
+        </div>
+
+      </main>
+
+      {/* Floating Hackathon Evaluator Simulation Toolbar */}
+      <SimulationBar
+        onSimulateBusDeviation={() => handleSimulateBusDeviation('cab-shared-942')}
+        onSimulateCabStop={() => handleSimulateCabStop('cab-shared-942')}
+        onSimulateBlackout={handleSimulateBlackout}
+        onTriggerWearableSOS={handleTriggerWearableSOS}
+        isBlackoutActive={isBlackoutSimulated}
+      />
+
+      {/* Discreet SOS Modal */}
+      <DiscreetSOSModal
+        isOpen={isSOSModalOpen}
+        onClose={() => setIsSOSModalOpen(false)}
+        onAlertDispatched={handleAlertDispatched}
+        activeVehicle={vehicles.find((v) => v.id === selectedVehicleId)}
+      />
+    </div>
+  );
+}
