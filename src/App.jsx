@@ -15,6 +15,11 @@ import OfflineMeshRelay from './components/OfflineMeshRelay';
 import EvidenceVault from './components/EvidenceVault';
 import CommunitySafetyAudit from './components/CommunitySafetyAudit';
 
+import SurakshaCopilot from './components/SurakshaCopilot';
+import WhatsAppBotBridge from './components/WhatsAppBotBridge';
+import MunicipalAnalytics from './components/MunicipalAnalytics';
+import BLESmartRing from './components/BLESmartRing';
+
 import { mockNightRoutes } from './data/mockRoutes';
 import { mockTransitVehicles } from './data/mockTransitData';
 import { mockSafeHavens, mockIncidents } from './data/mockSafeHavens';
@@ -49,7 +54,7 @@ export default function App() {
           return {
             ...v,
             geofenceStatus: 'DEVIATED',
-            currentLocation: [28.5910, 77.1960], // Off-route location
+            currentLocation: [28.5910, 77.1960],
             speed: '12 km/h (Straying off-path)',
             stopSafetyRating: 'CRITICAL LOW (24/100)',
             nextStop: 'UNAUTHORIZED OFF-ROUTE ALLEY'
@@ -111,25 +116,21 @@ export default function App() {
     }
   };
 
-  // Trigger Wearable SOS
   const handleTriggerWearableSOS = () => {
     setIsSOSModalOpen(true);
   };
 
-  // Dispatch alert callback from SOS Modal
   const handleAlertDispatched = (newAlert) => {
     setActiveAlerts((prev) => [newAlert, ...prev]);
     setActiveAlert(newAlert);
   };
 
-  // Update alert status in Control Room
   const handleUpdateAlertStatus = (alertId, newStatus) => {
     setActiveAlerts((prev) =>
       prev.map((a) => (a.id === alertId ? { ...a, status: newStatus } : a))
     );
   };
 
-  // Safe haven navigation guide handler
   const handleNavigateToHaven = (coords) => {
     setMapCenter(coords);
     setActiveTab('transit');
@@ -200,7 +201,18 @@ export default function App() {
 
             {activeTab === 'advanced' && (
               <div className="space-y-6">
+                <SurakshaCopilot 
+                  onNavigateToHaven={handleNavigateToHaven}
+                  onSelectVehicle={setSelectedVehicleId}
+                />
+                <WhatsAppBotBridge 
+                  activeVehicle={vehicles.find((v) => v.id === selectedVehicleId)}
+                />
+                <BLESmartRing 
+                  onTriggerSOS={handleTriggerWearableSOS}
+                />
                 <VoiceDistressListener onAutoTriggerSOS={handleTriggerWearableSOS} />
+                <MunicipalAnalytics />
                 <PinkCompanion />
                 <OfflineMeshRelay />
                 <EvidenceVault />
