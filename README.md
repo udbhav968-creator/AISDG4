@@ -1,70 +1,86 @@
 # SurakshaOne 🛡️
-### AI Real-Time Public-Transport Safety, AI Voice Shield & Dynamic Safe-Route Planning for Women
+### Full-Stack AI Real-Time Public Transport Safety & Dynamic Safe-Route System
 
 [![React](https://img.shields.io/badge/React-18.3-blue.svg)](https://react.dev/)
-[![Vite](https://img.shields.io/badge/Vite-6.0-purple.svg)](https://vitejs.dev/)
+[![Express](https://img.shields.io/badge/Express-4.21-lightgrey.svg)](https://expressjs.com/)
+[![Socket.io](https://img.shields.io/badge/Socket.io-4.8-black.svg)](https://socket.io/)
+[![Python AI](https://img.shields.io/badge/Python%20AI-FastAPI%2FHTTP-yellow.svg)](https://python.org/)
 [![Leaflet](https://img.shields.io/badge/Leaflet-1.9-green.svg)](https://leafletjs.com/)
 [![Hackathon](https://img.shields.io/badge/Theme-Women's%20Safety%20%26%20Empowerment-pink.svg)]()
 
 ---
 
-## 📌 Executive Summary
+## 📌 Full-Stack System Architecture
 
-**SurakshaOne** is a deep, end-to-end, AI-powered women's safety platform combining real-time public transport monitoring (**PS-B06**) and dynamic night safe-route navigation (**PS-B07**), alongside cutting-edge Edge AI voice classifier shields, stealth duress calculator covers, mesh network SMS fallbacks, and cryptographic legal evidence vaults.
+**SurakshaOne** is a production-grade full-stack solution integrating a Node.js Express REST API, a Socket.io WebSocket real-time engine, a Python Machine Learning AI microservice, and a React + Vite frontend.
 
----
-
-## 🎯 Core Problem Statements & Advanced Modules
-
-### 1. PS-B06: Real-Time Public-Transport Safety System for Women
-* **Live Transit Monitoring**: Continuous 5G telemetry for electric buses, metro coaches, and shared cabs with stop-by-stop safety ratings.
-* **Anomaly & Route Deviation Engine**: Automatic detection when a vehicle departs from its geofenced route or halts unexpectedly in low-safety unlit areas (> 2 mins).
-* **Discreet SOS Activation**: Shake gesture, secret PIN duress codes (`#9911`), smartwatch BLE triggers, and volume key sequence demo.
-* **Ambient Audio & Evidence Capture**: Real-time speech-to-text transcript recording and snapshot stream to Pink Patrol emergency control rooms.
-
-### 2. PS-B07: Dynamic Safe-Route Planning for Women Travelling at Night
-* **Multi-Route Safety Comparison**: Compares **Safest Route**, **Fastest Route**, and **Balanced Route** with dynamic Safety Scores (0-100).
-* **Transparent Risk Scoring**: Clear explanations detailing why a route is recommended (e.g., "+35% Smart LED lighting", "4 Pink Booths on path", "Avoids unlit underpass").
-* **Live Environmental Blackout Simulation**: Evaluators can trigger a simulated streetlight blackout event to observe real-time AI auto-rerouting to safer corridors.
-* **Nearest Safe Haven Radar**: One-tap navigation to 24/7 Pink Police Booths, hospitals, and open commercial sanctuaries.
-
-### 3. 🎙️ Deep Feature Suite
-* **AI Edge Voice & Scream Shield (`VoiceDistressListener.jsx`)**: On-device WebAudio acoustic classifier listening for distress keywords (*"Help"*, *"Bachao"*, *"Chhodo"*) or high-dB acoustic screaming spikes (> 85dB) without requiring internet.
-* **Stealth Cover Calculator (`StealthCalculator.jsx`)**: Transforms the entire UI into a functional Scientific Calculator. Entering secret code `9911` secretly dispatches emergency PCR behind cover.
-* **Pink Companion "Safe Buddy" Matcher (`PinkCompanion.jsx`)**: Matches female travelers on matching night bus/metro routes to form synchronized escort squads.
-* **Off-Grid Mesh Relay & 2G SMS Payload (`OfflineMeshRelay.jsx`)**: Peer-to-peer WebRTC mesh visualization & compressed encrypted SMS payload generator (`#SURAKSHA#SOS#LAT#LON#HASH`) for zero-signal fallback.
-* **Cryptographic Evidence Vault & FIR Generator (`EvidenceVault.jsx`)**: SHA-256 court-admissible forensic hash signatures with 1-click legal Police FIR PDF/Print report generation.
-* **Crowdsourced Community Safety Audits (`CommunitySafetyAudit.jsx`)**: Commuter lighting reports, photo uploads, and community hazard verification.
-
----
-
-## 🛠️ Technology Stack
-
-* **Frontend Framework**: React 18 + Vite
-* **Styling**: Tailwind CSS + Custom Dark Glassmorphism Design System
-* **Mapping Engine**: Leaflet + React-Leaflet + OpenStreetMap CartoDB Dark Tiles
-* **AI Classifiers**: Custom WebAudio Acoustic Classifier & Speech-to-Text Parser
-* **Icons & Visuals**: Lucide Icons + Canvas Confetti
-
----
-
-## 🚀 Quick Start & Installation
-
-```bash
-# 1. Clone the repository
-git clone https://github.com/udbhav968-creator/AISDG4.git
-cd AISDG4
-
-# 2. Install dependencies
-npm install
-
-# 3. Start development server
-npm run dev
+```
+                  ┌──────────────────────────────────────────┐
+                  │    React 18 + Vite Frontend Dashboard    │
+                  └─────┬──────────────────────────────┬─────┘
+                        │                              │
+         Socket.io Live │ Real-Time Telemetry          │ REST API
+         Stream (Port 5000)                            │ (Port 5000)
+                        ▼                              ▼
+            ┌──────────────────────────────────────────────┐
+            │   Express.js + Socket.io Node Server         │
+            │   (Database State & SOS Broadcast Router)    │
+            └──────────────────────┬───────────────────────┘
+                                   │ HTTP Microservice (Port 8000)
+                                   ▼
+            ┌──────────────────────────────────────────────┐
+            │   Python AI Risk & Anomaly Engine            │
+            │   (ML Trajectory Anomaly & Risk Model)       │
+            └──────────────────────────────────────────────┘
 ```
 
-Open your browser at `http://localhost:3000`.
+---
+
+## 🚀 Key Modules & Endpoints
+
+### 1. **Express Backend REST API (`/api/v1`)**
+* `GET /api/v1/transit/vehicles` - Real-time transit telemetry, crowd level, and CCTV feeds.
+* `GET /api/v1/routes/night-routes` - Night route risk scores (0-100), lighting levels, and police points.
+* `POST /api/v1/sos/trigger` - Discreet SOS activation, generating SHA-256 evidence hashes and broadcasting alerts.
+* `GET /api/v1/safe-havens` - 24/7 Pink Police Booths, hospitals, and open commercial sanctuaries.
+* `POST /api/v1/fir/generate` - Legal First Information Report (FIR) generator API.
+* `POST /api/v1/ai/copilot` - Conversational AI Copilot endpoint.
+
+### 2. **Python AI Machine Learning Engine (`ai_engine/`)**
+* `POST /predict-risk` - Machine learning model predicting risk scores based on street lighting, crowd presence, and police proximity.
+* `POST /detect-anomaly` - Geofence trajectory deviation classifier.
+
+### 3. **Socket.io Real-Time Telemetry Stream**
+* Bi-directional WebSockets pushing live vehicle GPS updates, CCTV camera streams, and emergency control room alert broadcasts.
+
+---
+
+## 🛠️ Running the Full-Stack Application
+
+### 1. Install Node.js Dependencies
+```bash
+npm install
+```
+
+### 2. Start Express Backend Server
+```bash
+npm run server
+# Express listening on http://localhost:5000
+```
+
+### 3. Start Python AI Microservice Engine
+```bash
+python ai_engine/server.py
+# Python AI Engine listening on http://localhost:8000
+```
+
+### 4. Start React Frontend Client
+```bash
+npm run dev
+# React Vite running on http://localhost:3000
+```
 
 ---
 
 ## 📄 License & Hackathon Info
-Submitted under **Women's Safety & Empowerment** track (PS-B06 & PS-B07).
+Developed for **Innovate 4 Impact - AI SDG Global Hackathon 2026** under **Women's Safety & Empowerment** track (PS-B06 & PS-B07).
