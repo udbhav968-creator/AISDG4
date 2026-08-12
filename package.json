@@ -9,14 +9,17 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "server": "node server/index.js",
+    "seed": "node server/db/seed.js",
     "ai-engine": "python ai_engine/server.py",
     "fullstack": "concurrently \"npm run server\" \"npm run dev\""
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "canvas-confetti": "^1.9.4",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.469.0",
     "react": "^18.3.1",
