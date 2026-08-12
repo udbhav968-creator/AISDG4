@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import MapView from './components/MapView';
 import RoutePlanner from './components/RoutePlanner';
@@ -20,6 +20,7 @@ import WhatsAppBotBridge from './components/WhatsAppBotBridge';
 import MunicipalAnalytics from './components/MunicipalAnalytics';
 import BLESmartRing from './components/BLESmartRing';
 
+import { fetchTransitVehicles, fetchNightRoutes, fetchSafeHavens, triggerDiscreetSOS } from './services/api';
 import { mockNightRoutes } from './data/mockRoutes';
 import { mockTransitVehicles } from './data/mockTransitData';
 import { mockSafeHavens, mockIncidents } from './data/mockSafeHavens';
@@ -27,7 +28,7 @@ import { mockSafeHavens, mockIncidents } from './data/mockSafeHavens';
 export default function App() {
   const [activeTab, setActiveTab] = useState('transit'); // 'transit', 'routes', 'advanced', 'safehavens', 'authority'
   
-  // Data States
+  // Data States (Fetched via REST APIs)
   const [routes, setRoutes] = useState(mockNightRoutes);
   const [selectedRouteId, setSelectedRouteId] = useState('route-safest');
   const [vehicles, setVehicles] = useState(mockTransitVehicles);
@@ -35,6 +36,7 @@ export default function App() {
   const [safeHavens, setSafeHavens] = useState(mockSafeHavens);
   const [incidents, setIncidents] = useState(mockIncidents);
   const [activeAlerts, setActiveAlerts] = useState([]);
+  const [isLoadingApi, setIsLoadingApi] = useState(false);
   
   // UI & Simulation States
   const [isSOSModalOpen, setIsSOSModalOpen] = useState(false);
@@ -43,6 +45,28 @@ export default function App() {
   const [wearableConnected, setWearableConnected] = useState(true);
   const [mapCenter, setMapCenter] = useState([28.6105, 77.2185]);
   const [activeAlert, setActiveAlert] = useState(null);
+
+  // --- REST API Initial Live Fetching --- //
+  useEffect(() => {
+    async function loadLiveData() {
+      setIsLoadingApi(true);
+      try {
+        const [vData, rData, shData] = await Promise.all([
+          fetchTransitVehicles(),
+          fetchNightRoutes(),
+          fetchSafeHavens()
+        ]);
+        if (vData && vData.length > 0) setVehicles(vData);
+        if (rData && rData.length > 0) setRoutes(rData);
+        if (shData && shData.length > 0) setSafeHavens(shData);
+      } catch (err) {
+        console.warn('API Fallback active');
+      } finally {
+        setIsLoadingApi(false);
+      }
+    }
+    loadLiveData();
+  }, []);
 
   // --- Handlers & Simulators --- //
 
@@ -120,9 +144,10 @@ export default function App() {
     setIsSOSModalOpen(true);
   };
 
-  const handleAlertDispatched = (newAlert) => {
+  const handleAlertDispatched = async (newAlert) => {
     setActiveAlerts((prev) => [newAlert, ...prev]);
     setActiveAlert(newAlert);
+    await triggerDiscreetSOS(newAlert);
   };
 
   const handleUpdateAlertStatus = (alertId, newStatus) => {
@@ -164,7 +189,6 @@ export default function App() {
               safeHavens={safeHavens}
               incidents={incidents}
               mapCenter={mapCenter}
-              showHeatmap={true}
               activeAlert={activeAlert}
             />
           </div>
@@ -239,7 +263,7 @@ export default function App() {
 
       </main>
 
-      {/* Floating Evaluator Simulation Toolbar (With Clearance Protection) */}
+      {/* Floating Evaluator Simulation Toolbar */}
       <SimulationBar
         onSimulateBusDeviation={() => handleSimulateBusDeviation('cab-shared-942')}
         onSimulateCabStop={() => handleSimulateCabStop('cab-shared-942')}
