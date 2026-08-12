@@ -137,8 +137,8 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col font-sans pb-24">
-      {/* Top Navbar */}
+    <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col font-sans pb-32">
+      {/* Top Multi-Page Navigation Bar */}
       <Navbar
         activeTab={activeTab}
         setActiveTab={setActiveTab}
@@ -148,14 +148,14 @@ export default function App() {
         wearableConnected={wearableConnected}
       />
 
-      {/* Main App Container */}
+      {/* Main Multi-Page App Container */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 lg:px-8 py-6 space-y-8">
         
-        {/* Top Split Layout: Interactive Map View + Active Control View */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        {/* Split Multi-Page Grid: Interactive Leaflet GIS Engine (Left) + Page Controls (Right) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           
-          {/* Left / Center Map Engine (7 Cols) */}
-          <div className="lg:col-span-7">
+          {/* GIS Interactive Leaflet Map Engine (7 Cols) */}
+          <div className="lg:col-span-7 sticky top-20">
             <MapView
               routes={routes}
               selectedRouteId={selectedRouteId}
@@ -169,8 +169,8 @@ export default function App() {
             />
           </div>
 
-          {/* Right Panel View (5 Cols): Dynamic based on Active Tab */}
-          <div className="lg:col-span-5 space-y-6 max-h-[750px] overflow-y-auto pr-1">
+          {/* Dedicated Page View Controls (5 Cols) */}
+          <div className="lg:col-span-5 space-y-6">
             {activeTab === 'transit' && (
               <TransitTracker
                 vehicles={vehicles}
@@ -239,7 +239,7 @@ export default function App() {
 
       </main>
 
-      {/* Floating Hackathon Evaluator Simulation Toolbar */}
+      {/* Floating Evaluator Simulation Toolbar (With Clearance Protection) */}
       <SimulationBar
         onSimulateBusDeviation={() => handleSimulateBusDeviation('cab-shared-942')}
         onSimulateCabStop={() => handleSimulateCabStop('cab-shared-942')}
@@ -248,7 +248,7 @@ export default function App() {
         isBlackoutActive={isBlackoutSimulated}
       />
 
-      {/* Discreet SOS Modal */}
+      {/* Discreet Emergency SOS Confirmation Modal */}
       <DiscreetSOSModal
         isOpen={isSOSModalOpen}
         onClose={() => setIsSOSModalOpen(false)}
@@ -256,7 +256,7 @@ export default function App() {
         activeVehicle={vehicles.find((v) => v.id === selectedVehicleId)}
       />
 
-      {/* Stealth Duress Calculator */}
+      {/* Stealth Duress Calculator Cover */}
       <StealthCalculator
         isOpen={isStealthCalculatorOpen}
         onClose={() => setIsStealthCalculatorOpen(false)}
