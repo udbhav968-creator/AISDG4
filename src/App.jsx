@@ -162,7 +162,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col font-sans pb-32">
+    <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col font-sans pb-36">
       {/* Top Multi-Page Navigation Bar */}
       <Navbar
         activeTab={activeTab}
@@ -174,7 +174,7 @@ export default function App() {
       />
 
       {/* Main Multi-Page App Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 lg:px-8 py-6 space-y-8">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 lg:px-8 py-6">
         
         {/* Split Multi-Page Grid: Interactive Leaflet GIS Engine (Left) + Page Controls (Right) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
@@ -263,7 +263,7 @@ export default function App() {
 
       </main>
 
-      {/* Floating Evaluator Simulation Toolbar */}
+      {/* Floating Evaluator Simulation Toolbar (With Clearance Protection) */}
       <SimulationBar
         onSimulateBusDeviation={() => handleSimulateBusDeviation('cab-shared-942')}
         onSimulateCabStop={() => handleSimulateCabStop('cab-shared-942')}

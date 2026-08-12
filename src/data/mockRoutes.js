@@ -1,94 +1,63 @@
-// Realistic Night Routes with Dynamic Safety Scoring (PS-B07)
 export const mockNightRoutes = [
   {
     id: 'route-safest',
-    name: 'Safest Route (Main Arterial Corridor)',
-    badge: 'RECOMMENDED FOR NIGHT',
-    type: 'safest',
-    distance: '8.4 km',
-    duration: '22 mins',
+    name: 'Main Arterial Safe Corridor (Recommended)',
+    type: 'SAFEST',
     safetyScore: 94,
-    lightingLevel: '96% Well-Lit (LED Smart Grid)',
-    crowdRating: 'High Presence (78% Active)',
-    policePoints: 4,
-    openBusinesses: 12,
-    incidentsLast30Days: 0,
-    color: '#10b981', // green
-    riskFactors: [
-      { factor: 'Street Lighting', score: 98, status: 'Optimal (LED Grid)' },
-      { factor: 'Police Help Points', score: 95, status: '4 Active Booths' },
-      { factor: 'Foot Traffic & Open Stores', score: 92, status: 'High 24/7 Commerce' },
-      { factor: 'Emergency Vehicle Access', score: 96, status: 'Wide 4-Lane Avenue' },
-    ],
-    explanation: 'Follows major well-lit main boulevards with 4 active Pink Police Booths and 12 open 24/7 pharmacies and cafes. Zero reported safety incidents in the past 30 days.',
+    time: '24 mins',
+    distance: '11.8 km',
+    badge: 'SAFEST NIGHT ROUTE',
+    lightingLevel: '94% Smart LED Illuminated',
+    policePresence: '4 Pink Police Booths & Active PCR Patrol',
+    crowdRating: 'High Commuter Traffic (Well-Lit Commercial Zone)',
     path: [
-      [28.6289, 77.2065], // Connaught Place Central
-      [28.6212, 77.2140], // Janpath Corridor (Well lit)
-      [28.6105, 77.2185], // Rajpath Pink Booth
-      [28.5952, 77.2160], // AIIMS Flyover Guard Post
-      [28.5801, 77.2110], // South Extension Commercial Hub
-      [28.5670, 77.2070], // Green Park Main Road
-      [28.5520, 77.2040]  // Hauz Khas Safe Zone Terminal
-    ]
+      [28.6328, 77.2197], // Connaught Place Central Hub
+      [28.6180, 77.2150], // Patel Chowk Junction
+      [28.6010, 77.2110], // Safdarjung Tomb Arterial
+      [28.5830, 77.2060], // AIIMS Flyover Safe Corridor
+      [28.5670, 77.2040], // Green Park Main Road
+      [28.5450, 77.2060]  // Hauz Khas Safe Zone Terminal
+    ],
+    explanation: '✓ RECOMMENDED: Continuous 94% LED street lighting, 4 active 24/7 Pink Police Booths, and 18 open commercial sanctuaries along the corridor.'
   },
   {
     id: 'route-fastest',
-    name: 'Fastest Route (Shortcut via Service Lane)',
-    badge: 'NOT RECOMMENDED AFTER 10 PM',
-    type: 'fastest',
-    distance: '6.8 km',
-    duration: '16 mins',
-    safetyScore: 58,
-    lightingLevel: '42% Low / Partial Outage',
-    crowdRating: 'Isolated (12% Active)',
-    policePoints: 0,
-    openBusinesses: 1,
-    incidentsLast30Days: 3,
-    color: '#ef4444', // red
-    riskFactors: [
-      { factor: 'Street Lighting', score: 38, status: '3 Blackout Segments' },
-      { factor: 'Police Help Points', score: 20, status: 'None on path' },
-      { factor: 'Foot Traffic & Open Stores', score: 25, status: 'Empty industrial lane' },
-      { factor: 'Emergency Vehicle Access', score: 60, status: 'Narrow single lane' },
-    ],
-    explanation: 'Saves 6 minutes but traverses poorly-lit secondary alleys behind industrial parks with zero police presence and 3 reported incidents at night.',
+    name: 'Industrial Park Shortcut Alley',
+    type: 'FASTEST',
+    safetyScore: 48,
+    time: '18 mins',
+    distance: '9.2 km',
+    badge: 'CAUTION: LOW LIGHTING',
+    lightingLevel: '38% Dim/Broken Streetlamps',
+    policePresence: '1 Police Booth (2.8 km away)',
+    crowdRating: 'Isolated Industrial Rear Area',
     path: [
-      [28.6289, 77.2065], // Connaught Place Central
-      [28.6240, 77.1980], // Secondary Alley 1
-      [28.6080, 77.1950], // Unlit Underpass (Risk Area)
-      [28.5910, 77.1960], // Empty Industrial Lane
-      [28.5720, 77.1990], // Rear Railway Service Gate
-      [28.5520, 77.2040]  // Hauz Khas Safe Zone Terminal
-    ]
+      [28.6328, 77.2197], // Connaught Place Central Hub
+      [28.6110, 77.1950], // Industrial Rear Gate
+      [28.5910, 77.1960], // Unlit Alley Segment #03
+      [28.5680, 77.1980], // Railway Overpass Shortcut
+      [28.5450, 77.2060]  // Hauz Khas Safe Zone Terminal
+    ],
+    explanation: '⚠️ CAUTION: Unlit 2.4 km stretch near Industrial Rear Gate with broken streetlamps and zero foot traffic past 10 PM.'
   },
   {
     id: 'route-balanced',
-    name: 'Balanced Route (Metro Ring Road)',
-    badge: 'BALANCED ALTERNATIVE',
-    type: 'balanced',
-    distance: '7.6 km',
-    duration: '19 mins',
+    name: 'Ring Road Expressway Option',
+    type: 'BALANCED',
     safetyScore: 82,
-    lightingLevel: '80% Adequate Lighting',
-    crowdRating: 'Moderate (45% Active)',
-    policePoints: 2,
-    openBusinesses: 6,
-    incidentsLast30Days: 1,
-    color: '#f59e0b', // yellow
-    riskFactors: [
-      { factor: 'Street Lighting', score: 82, status: 'Mostly Good' },
-      { factor: 'Police Help Points', score: 75, status: '2 Patrol Points' },
-      { factor: 'Foot Traffic & Open Stores', score: 78, status: 'Metro Stations Open' },
-      { factor: 'Emergency Vehicle Access', score: 90, status: 'Main Transit Arterial' },
-    ],
-    explanation: 'Balanced travel time along the Elevated Metro Line. Good lighting with 2 metro security posts and moderate crowd presence.',
+    time: '21 mins',
+    distance: '10.5 km',
+    badge: 'BALANCED ALTERNATIVE',
+    lightingLevel: '82% Standard Highway Lights',
+    policePresence: '2 PCR Patrol Vehicles',
+    crowdRating: 'Moderate Vehicle Traffic',
     path: [
-      [28.6289, 77.2065], // Connaught Place Central
-      [28.6180, 77.2100], // Patel Chowk Metro
-      [28.6020, 77.2120], // Race Course Security Post
-      [28.5870, 77.2100], // Jor Bagh Transit Hub
-      [28.5690, 77.2080], // INA Market Safe Stop
-      [28.5520, 77.2040]  // Hauz Khas Safe Zone Terminal
-    ]
+      [28.6328, 77.2197], // Connaught Place Central Hub
+      [28.6250, 77.2350], // ITO Ring Road Junction
+      [28.5980, 77.2380], // Ashram Flyover Expressway
+      [28.5690, 77.2280], // South Extension Part 2
+      [28.5450, 77.2060]  // Hauz Khas Safe Zone Terminal
+    ],
+    explanation: '✓ BALANCED: Fast expressway route with steady night traffic and 82% overhead streetlamp coverage.'
   }
 ];

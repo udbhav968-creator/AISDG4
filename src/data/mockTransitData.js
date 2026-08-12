@@ -4,7 +4,7 @@ export const mockTransitVehicles = [
     name: 'DTC Electric Bus #512',
     type: 'BUS',
     route: 'Connaught Place ➔ Nehru Place',
-    currentLocation: [28.6139, 77.2090], // Spaced Lat/Lon
+    currentLocation: [28.6180, 77.2150], // Patel Chowk Junction
     speed: '34 km/h',
     geofenceStatus: 'ON-ROUTE',
     passengerCount: 28,
@@ -18,7 +18,7 @@ export const mockTransitVehicles = [
     name: 'Shared Cab #DL-3C-AZ-4921',
     type: 'CAB',
     route: 'Saket ➔ Hauz Khas',
-    currentLocation: [28.5450, 77.2060], // Spaced Lat/Lon
+    currentLocation: [28.5670, 77.2040], // Green Park Main Road
     speed: '42 km/h',
     geofenceStatus: 'SAFE',
     passengerCount: 3,
@@ -32,7 +32,7 @@ export const mockTransitVehicles = [
     name: 'Delhi Metro Yellow Line (Coach 4 - Ladies Special)',
     type: 'METRO',
     route: 'Samaypur Badli ➔ Millennium City Centre',
-    currentLocation: [28.6328, 77.2197], // Spaced Lat/Lon
+    currentLocation: [28.6328, 77.2197], // Rajiv Chowk Hub
     speed: '65 km/h',
     geofenceStatus: 'ON-ROUTE',
     passengerCount: 140,
