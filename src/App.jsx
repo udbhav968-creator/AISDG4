@@ -19,6 +19,8 @@ import SurakshaCopilot from './components/SurakshaCopilot';
 import WhatsAppBotBridge from './components/WhatsAppBotBridge';
 import MunicipalAnalytics from './components/MunicipalAnalytics';
 import BLESmartRing from './components/BLESmartRing';
+import AudioSpectrumVisualizer from './components/AudioSpectrumVisualizer';
+import VehicleTelemetryChart from './components/VehicleTelemetryChart';
 
 import { fetchTransitVehicles, fetchNightRoutes, fetchSafeHavens, triggerDiscreetSOS } from './services/api';
 import { mockNightRoutes } from './data/mockRoutes';
@@ -174,7 +176,7 @@ export default function App() {
       />
 
       {/* Main Multi-Page App Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 lg:px-8 py-6">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 lg:px-8 py-6 space-y-8">
         
         {/* Split Multi-Page Grid: Interactive Leaflet GIS Engine (Left) + Page Controls (Right) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
@@ -196,17 +198,22 @@ export default function App() {
           {/* Dedicated Page View Controls (5 Cols) */}
           <div className="lg:col-span-5 space-y-6">
             {activeTab === 'transit' && (
-              <TransitTracker
-                vehicles={vehicles}
-                selectedVehicleId={selectedVehicleId}
-                onSelectVehicle={(id) => {
-                  setSelectedVehicleId(id);
-                  const veh = vehicles.find((v) => v.id === id);
-                  if (veh) setMapCenter(veh.currentLocation);
-                }}
-                onSimulateDeviation={handleSimulateBusDeviation}
-                onSimulateProlongedStop={handleSimulateCabStop}
-              />
+              <div className="space-y-6">
+                <TransitTracker
+                  vehicles={vehicles}
+                  selectedVehicleId={selectedVehicleId}
+                  onSelectVehicle={(id) => {
+                    setSelectedVehicleId(id);
+                    const veh = vehicles.find((v) => v.id === id);
+                    if (veh) setMapCenter(veh.currentLocation);
+                  }}
+                  onSimulateDeviation={handleSimulateBusDeviation}
+                  onSimulateProlongedStop={handleSimulateCabStop}
+                />
+                <VehicleTelemetryChart 
+                  selectedVehicle={vehicles.find((v) => v.id === selectedVehicleId)} 
+                />
+              </div>
             )}
 
             {activeTab === 'routes' && (
@@ -225,6 +232,9 @@ export default function App() {
 
             {activeTab === 'advanced' && (
               <div className="space-y-6">
+                <AudioSpectrumVisualizer 
+                  onAutoTriggerSOS={handleTriggerWearableSOS}
+                />
                 <SurakshaCopilot 
                   onNavigateToHaven={handleNavigateToHaven}
                   onSelectVehicle={setSelectedVehicleId}
@@ -263,7 +273,7 @@ export default function App() {
 
       </main>
 
-      {/* Floating Evaluator Simulation Toolbar (With Clearance Protection) */}
+      {/* Floating Evaluator Simulation Toolbar */}
       <SimulationBar
         onSimulateBusDeviation={() => handleSimulateBusDeviation('cab-shared-942')}
         onSimulateCabStop={() => handleSimulateCabStop('cab-shared-942')}

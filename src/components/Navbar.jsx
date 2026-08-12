@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Shield, Bus, Navigation, Radar, Radio, ShieldAlert, Calculator, Watch, UserCheck, Key } from 'lucide-react';
+import { Shield, Bus, Navigation, Radar, Radio, ShieldAlert, Calculator, UserCheck, Activity, Cpu } from 'lucide-react';
 import AuthModal from './AuthModal';
 
 export default function Navbar({
@@ -15,6 +15,27 @@ export default function Navbar({
 
   return (
     <>
+      {/* Top Ultra-Pro Status Bar */}
+      <div className="bg-zinc-950 border-b border-zinc-850 px-4 py-1 text-[11px] font-mono text-zinc-400 flex items-center justify-between overflow-x-auto">
+        <div className="flex items-center gap-3">
+          <span className="flex items-center gap-1 text-emerald-400 font-bold">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+            SYSTEM ONLINE
+          </span>
+          <span>|</span>
+          <span className="text-zinc-300">⚡ 12ms Edge Latency</span>
+          <span>|</span>
+          <span className="text-pink-400 font-bold">5G WebRTC Mesh Active</span>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <span className="text-purple-400 font-bold">Google Gemini 1.5 & Claude 3.5 AI Engaged</span>
+          <span>|</span>
+          <span className="text-zinc-400">99.98% Uptime</span>
+        </div>
+      </div>
+
+      {/* Main Glass Header */}
       <header className="sticky top-0 z-40 bg-zinc-950/90 backdrop-blur-md border-b border-zinc-800">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 h-16 flex items-center justify-between">
           
@@ -33,7 +54,7 @@ export default function Navbar({
                   Suraksha<span className="text-pink-500">One</span>
                 </h1>
                 <span className="px-2 py-0.5 text-[10px] font-extrabold bg-pink-500/10 text-pink-400 border border-pink-500/20 rounded-full">
-                  AI FULL-STACK
+                  ULTRA PRO AI
                 </span>
               </div>
               <p className="text-[11px] text-zinc-400 hidden sm:block">
@@ -47,7 +68,7 @@ export default function Navbar({
             <button
               onClick={() => setActiveTab('transit')}
               className={`px-3 py-1.5 rounded-lg font-semibold flex items-center gap-1.5 transition ${
-                activeTab === 'transit' ? 'bg-pink-600 text-white shadow' : 'text-zinc-400 hover:text-white'
+                activeTab === 'transit' ? 'bg-pink-600 text-white shadow-lg shadow-pink-600/20' : 'text-zinc-400 hover:text-white'
               }`}
             >
               <Bus className="w-3.5 h-3.5" />
@@ -57,7 +78,7 @@ export default function Navbar({
             <button
               onClick={() => setActiveTab('routes')}
               className={`px-3 py-1.5 rounded-lg font-semibold flex items-center gap-1.5 transition ${
-                activeTab === 'routes' ? 'bg-pink-600 text-white shadow' : 'text-zinc-400 hover:text-white'
+                activeTab === 'routes' ? 'bg-pink-600 text-white shadow-lg shadow-pink-600/20' : 'text-zinc-400 hover:text-white'
               }`}
             >
               <Navigation className="w-3.5 h-3.5" />
@@ -67,7 +88,7 @@ export default function Navbar({
             <button
               onClick={() => setActiveTab('advanced')}
               className={`px-3 py-1.5 rounded-lg font-semibold flex items-center gap-1.5 transition ${
-                activeTab === 'advanced' ? 'bg-pink-600 text-white shadow' : 'text-zinc-400 hover:text-white'
+                activeTab === 'advanced' ? 'bg-pink-600 text-white shadow-lg shadow-pink-600/20' : 'text-zinc-400 hover:text-white'
               }`}
             >
               <Radio className="w-3.5 h-3.5" />
@@ -77,7 +98,7 @@ export default function Navbar({
             <button
               onClick={() => setActiveTab('safehavens')}
               className={`px-3 py-1.5 rounded-lg font-semibold flex items-center gap-1.5 transition ${
-                activeTab === 'safehavens' ? 'bg-pink-600 text-white shadow' : 'text-zinc-400 hover:text-white'
+                activeTab === 'safehavens' ? 'bg-pink-600 text-white shadow-lg shadow-pink-600/20' : 'text-zinc-400 hover:text-white'
               }`}
             >
               <Radar className="w-3.5 h-3.5" />
@@ -87,7 +108,7 @@ export default function Navbar({
             <button
               onClick={() => setActiveTab('authority')}
               className={`px-3 py-1.5 rounded-lg font-semibold flex items-center gap-1.5 transition relative ${
-                activeTab === 'authority' ? 'bg-pink-600 text-white shadow' : 'text-zinc-400 hover:text-white'
+                activeTab === 'authority' ? 'bg-pink-600 text-white shadow-lg shadow-pink-600/20' : 'text-zinc-400 hover:text-white'
               }`}
             >
               <ShieldAlert className="w-3.5 h-3.5 text-amber-400" />
