@@ -9,7 +9,21 @@
   }
 }
 
-/* Smooth Scrolling & Real Website Glassmorphism */
+/* Force Leaflet Map Panes to Low z-index so Modals ALWAYS Stay On Top */
+.leaflet-container,
+.leaflet-pane,
+.leaflet-top,
+.leaflet-bottom,
+.leaflet-map-pane,
+.leaflet-tile-pane,
+.leaflet-overlay-pane,
+.leaflet-marker-pane,
+.leaflet-tooltip-pane,
+.leaflet-popup-pane {
+  z-index: 1 !important;
+}
+
+/* Glassmorphism & Smooth Scrolling */
 html {
   scroll-behavior: smooth;
 }

@@ -44,7 +44,10 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess }) {
   };
 
   return (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+    <div 
+      className="fixed inset-0 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md"
+      style={{ zIndex: 99999, isolation: 'isolate' }}
+    >
       <div className="relative w-full max-w-md bg-zinc-900 border border-zinc-700 rounded-2xl p-6 shadow-2xl space-y-4 text-zinc-100">
         
         <button
