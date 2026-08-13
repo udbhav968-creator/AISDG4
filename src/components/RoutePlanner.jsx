@@ -14,7 +14,7 @@ export default function RoutePlanner({
       {/* Header */}
       <div className="flex items-center justify-between pb-3 border-b border-zinc-800">
         <div className="flex items-center gap-2">
-          <div className="p-2 bg-emerald-500/10 text-emerald-400 rounded-xl">
+          <div className="p-2 bg-gradient-to-tr from-emerald-500/20 to-teal-500/20 text-emerald-400 rounded-xl border border-emerald-500/30">
             <Navigation className="w-5 h-5" />
           </div>
           <div>
@@ -27,10 +27,10 @@ export default function RoutePlanner({
 
         <button
           onClick={onSimulateReroute}
-          className={`px-3 py-1.5 font-extrabold text-xs rounded-xl border transition flex items-center gap-1.5 ${
+          className={`px-3 py-1.5 font-extrabold text-xs rounded-xl border transition-all flex items-center gap-1.5 active:scale-95 ${
             isBlackoutSimulated
-              ? 'bg-red-600 text-white border-red-500 shadow-lg shadow-red-600/30'
-              : 'bg-zinc-800 hover:bg-zinc-700 text-amber-300 border-zinc-700'
+              ? 'bg-gradient-to-r from-red-600 to-rose-600 text-white border-red-500 shadow-lg shadow-red-600/30 animate-pulse'
+              : 'btn-vibrant-amber text-white border-amber-500/50'
           }`}
         >
           <Lightbulb className="w-3.5 h-3.5" />
@@ -49,7 +49,7 @@ export default function RoutePlanner({
               onClick={() => onSelectRoute(rt.id)}
               className={`p-4 rounded-xl cursor-pointer hover-blister transition-all ${
                 isSelected
-                  ? 'bg-zinc-900 border-2 border-pink-500 shadow-lg shadow-pink-500/10'
+                  ? 'bg-zinc-900/90 border-2 border-emerald-500 shadow-lg shadow-emerald-500/15'
                   : 'bg-zinc-900/60 border border-zinc-800 hover:bg-zinc-900'
               }`}
             >
@@ -76,7 +76,7 @@ export default function RoutePlanner({
                 </div>
               </div>
 
-              {/* Lighting & Crowd Indicators */}
+              {/* Lighting & Police Indicators */}
               <div className="grid grid-cols-2 gap-2 mt-3 pt-2 border-t border-zinc-800/80 text-xs">
                 <div className="flex items-center gap-1.5 text-zinc-300">
                   <Lightbulb className="w-3.5 h-3.5 text-amber-400 shrink-0" />
@@ -91,7 +91,7 @@ export default function RoutePlanner({
 
               {/* AI Risk Explanation */}
               {rt.explanation && (
-                <div className="mt-2.5 p-2 bg-zinc-950 border border-zinc-800/80 rounded-lg text-xs text-zinc-300 font-mono leading-relaxed">
+                <div className="mt-2.5 p-2.5 bg-zinc-950 border border-zinc-800/80 rounded-lg text-xs text-zinc-300 font-mono leading-relaxed">
                   {rt.explanation}
                 </div>
               )}

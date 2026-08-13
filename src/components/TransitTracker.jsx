@@ -1,5 +1,5 @@
 import React from 'react';
-import { Bus, Car, ShieldCheck, AlertTriangle, Video, Users, Navigation } from 'lucide-react';
+import { Bus, Car, ShieldCheck, AlertTriangle, Video, Users, Navigation, Compass, Clock } from 'lucide-react';
 
 export default function TransitTracker({
   vehicles = [],
@@ -16,7 +16,7 @@ export default function TransitTracker({
       {/* Header */}
       <div className="flex items-center justify-between pb-3 border-b border-zinc-800">
         <div className="flex items-center gap-2">
-          <div className="p-2 bg-pink-500/10 text-pink-400 rounded-xl">
+          <div className="p-2 bg-gradient-to-tr from-cyan-500/20 to-blue-500/20 text-cyan-400 rounded-xl border border-cyan-500/30">
             <Bus className="w-5 h-5" />
           </div>
           <div>
@@ -27,7 +27,8 @@ export default function TransitTracker({
           </div>
         </div>
 
-        <span className="px-2.5 py-1 bg-pink-500/20 text-pink-300 text-xs font-extrabold rounded-full border border-pink-500/30">
+        <span className="px-2.5 py-1 bg-cyan-500/20 text-cyan-300 text-xs font-extrabold rounded-full border border-cyan-500/30 flex items-center gap-1">
+          <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
           5G TELEMETRY
         </span>
       </div>
@@ -43,7 +44,7 @@ export default function TransitTracker({
               onClick={() => onSelectVehicle(v.id)}
               className={`p-4 rounded-xl cursor-pointer hover-blister transition-all ${
                 isSelected
-                  ? 'bg-zinc-900 border-2 border-pink-500 shadow-lg shadow-pink-500/10'
+                  ? 'bg-zinc-900/90 border-2 border-cyan-500 shadow-lg shadow-cyan-500/15'
                   : 'bg-zinc-900/60 border border-zinc-800 hover:bg-zinc-900'
               }`}
             >
@@ -63,7 +64,7 @@ export default function TransitTracker({
                 </div>
 
                 <div className="text-right">
-                  <span className="text-sm font-black text-pink-400 font-mono">{v.stopSafetyRating}</span>
+                  <span className="text-sm font-black text-cyan-400 font-mono">{v.stopSafetyRating}</span>
                   <span className="text-[10px] text-zinc-400 block font-semibold">STOP RATING</span>
                 </div>
               </div>
@@ -84,6 +85,25 @@ export default function TransitTracker({
         })}
       </div>
 
+      {/* Simulator Action Buttons for Current Vehicle */}
+      <div className="grid grid-cols-2 gap-2 pt-2">
+        <button
+          onClick={() => onSimulateDeviation(selectedVehicle?.id)}
+          className="btn-vibrant-amber p-2.5 rounded-xl text-white font-bold text-xs flex items-center justify-center gap-1.5 active:scale-95"
+        >
+          <Compass className="w-4 h-4" />
+          <span>Sim Stray Cab</span>
+        </button>
+
+        <button
+          onClick={() => onSimulateProlongedStop(selectedVehicle?.id)}
+          className="p-2.5 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-bold text-xs rounded-xl flex items-center justify-center gap-1.5 shadow active:scale-95 transition"
+        >
+          <Clock className="w-4 h-4" />
+          <span>Sim Prolonged Stop</span>
+        </button>
+      </div>
+
       {/* Live CCTV & Telemetry Feed Card */}
       {selectedVehicle && (
         <div className="p-3 bg-zinc-950 border border-zinc-800 rounded-xl space-y-2 text-xs">
@@ -99,13 +119,13 @@ export default function TransitTracker({
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 z-10 p-2 flex flex-col justify-between">
               <div className="flex items-center justify-between text-[10px] font-mono text-zinc-300">
                 <span>CAM-02 (Aisle & Rear Emergency Exit)</span>
-                <span className="text-pink-400">● REC 00:42:10</span>
+                <span className="text-pink-400 font-bold">● REC 00:42:10</span>
               </div>
               <p className="text-[11px] text-zinc-200 font-mono">Next Stop: {selectedVehicle.nextStop}</p>
             </div>
             
             {/* Visual Stream Simulation Canvas Grid */}
-            <div className="w-full h-full opacity-30 bg-[radial-gradient(#ec4899_1px,transparent_1px)] [background-size:16px_16px]"></div>
+            <div className="w-full h-full opacity-30 bg-[radial-gradient(#06b6d4_1px,transparent_1px)] [background-size:16px_16px]"></div>
           </div>
         </div>
       )}

@@ -9,34 +9,91 @@
   }
 }
 
-/* Premium Glassmorphism Panels */
+/* Rich Vibrant Color Gradients & Glass Panels */
 .glass-panel {
-  background: rgba(18, 18, 22, 0.85);
+  background: rgba(18, 18, 24, 0.85);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(63, 63, 70, 0.4);
-  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.6);
 }
 
 .glass-nav {
-  background: rgba(9, 9, 11, 0.9);
+  background: rgba(12, 12, 16, 0.92);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border-bottom: 1px solid rgba(63, 63, 70, 0.4);
+  border-bottom: 1px solid rgba(63, 63, 70, 0.5);
 }
 
-/* Mega-Level Hover Blistering & Glow */
+/* Gradient Borders */
+.gradient-border-pink {
+  border: 1px solid transparent;
+  background-image: linear-gradient(rgba(18, 18, 24, 0.9), rgba(18, 18, 24, 0.9)), linear-gradient(135deg, #ec4899, #8b5cf6, #3b82f6);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+
+.gradient-border-emerald {
+  border: 1px solid transparent;
+  background-image: linear-gradient(rgba(18, 18, 24, 0.9), rgba(18, 18, 24, 0.9)), linear-gradient(135deg, #10b981, #06b6d4, #3b82f6);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+
+/* Rich Button Styles with Vibrant Glows */
+.btn-vibrant-pink {
+  background: linear-gradient(135deg, #ec4899 0%, #d946ef 50%, #e11d48 100%);
+  box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);
+  transition: all 0.25s ease;
+}
+.btn-vibrant-pink:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(236, 72, 153, 0.6);
+}
+.btn-vibrant-pink:active {
+  transform: translateY(0);
+}
+
+.btn-vibrant-emerald {
+  background: linear-gradient(135deg, #10b981 0%, #059669 50%, #06b6d4 100%);
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.35);
+  transition: all 0.25s ease;
+}
+.btn-vibrant-emerald:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+}
+
+.btn-vibrant-indigo {
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 50%, #9333ea 100%);
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.35);
+  transition: all 0.25s ease;
+}
+.btn-vibrant-indigo:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
+}
+
+.btn-vibrant-amber {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #ea580c 100%);
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.35);
+  transition: all 0.25s ease;
+}
+.btn-vibrant-amber:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5);
+}
+
+/* Hover Blistering Card Effect */
 .hover-blister {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
 .hover-blister:hover {
   transform: translateY(-3px);
-  border-color: rgba(236, 72, 153, 0.6) !important;
-  box-shadow: 0 0 30px -5px rgba(236, 72, 153, 0.35), 0 10px 20px -5px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6);
 }
 
-/* Leaflet Container Styling & Pitch-Black Tile Filters */
+/* Leaflet Dark Map Tile Styling */
 .leaflet-container {
   width: 100%;
   height: 100%;
@@ -46,7 +103,7 @@
 }
 
 .leaflet-tile {
-  filter: brightness(0.85) contrast(1.15) saturate(1.2);
+  filter: brightness(0.88) contrast(1.12) saturate(1.25);
 }
 
 .leaflet-popup-content-wrapper {
@@ -67,16 +124,13 @@
   width: 6px;
   height: 6px;
 }
-
 ::-webkit-scrollbar-track {
   background: #09090b;
 }
-
 ::-webkit-scrollbar-thumb {
   background: #27272a;
   border-radius: 9999px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
   background: #ec4899;
 }
