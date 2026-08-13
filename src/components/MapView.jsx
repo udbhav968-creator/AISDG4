@@ -15,7 +15,7 @@ function MapResizer({ mapCenter }) {
   return null;
 }
 
-// Tile Map Layers Map
+// Map Tile Providers
 const MAP_LAYERS = {
   carto_dark: {
     name: 'CartoDB Dark',
@@ -23,12 +23,12 @@ const MAP_LAYERS = {
     attribution: '&copy; CARTO &copy; OpenStreetMap'
   },
   satellite_hybrid: {
-    name: 'Google Satellite',
+    name: 'Satellite View',
     url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
     attribution: '&copy; Esri World Imagery'
   },
   osm_standard: {
-    name: 'Night GIS',
+    name: 'Standard GIS',
     url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
     attribution: '&copy; OpenStreetMap'
   }
@@ -90,7 +90,7 @@ export default function MapView({
   const activeTile = MAP_LAYERS[activeLayerKey];
 
   return (
-    <div className="relative w-full h-[560px] rounded-2xl overflow-hidden glass-panel border border-zinc-800 shadow-2xl">
+    <div className="relative w-full h-[560px] rounded-2xl overflow-hidden glass-panel border border-zinc-800 shadow-2xl bg-zinc-950">
       
       {/* Map Header Status & Tile Layer Selector Bar */}
       <div className="absolute top-3 left-3 right-3 z-[400] flex items-center justify-between pointer-events-none flex-wrap gap-2">
@@ -137,6 +137,7 @@ export default function MapView({
           key={activeLayerKey}
           attribution={activeTile.attribution}
           url={activeTile.url}
+          maxZoom={19}
         />
 
         {/* Render Night Safe Routes (Polyline Paths) */}
