@@ -185,11 +185,11 @@ export default function App() {
         {/* Top Real-Time Telemetry Hero Banner */}
         <LiveStatsHero />
 
-        {/* Responsive Grid */}
+        {/* Responsive Grid - Clean non-overlapping column flow */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           
           {/* GIS Interactive Leaflet Map Engine (7 Cols) */}
-          <div className="lg:col-span-7 sticky top-20 z-10">
+          <div className="lg:col-span-7">
             <MapView
               routes={routes}
               selectedRouteId={selectedRouteId}
