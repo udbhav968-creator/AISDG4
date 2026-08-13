@@ -90,10 +90,10 @@ export default function MapView({
   const activeTile = MAP_LAYERS[activeLayerKey];
 
   return (
-    <div className="relative w-full h-[560px] rounded-2xl overflow-hidden glass-panel border border-zinc-800 shadow-2xl bg-zinc-950">
+    <div className="relative w-full h-[380px] sm:h-[480px] lg:h-[560px] rounded-2xl overflow-hidden glass-panel border border-zinc-800 shadow-2xl bg-zinc-950">
       
-      {/* Map Header Status & Tile Layer Selector Bar */}
-      <div className="absolute top-3 left-3 right-3 z-[400] flex items-center justify-between pointer-events-none flex-wrap gap-2">
+      {/* Map Header Status & Tile Layer Selector Bar (z-10 for clean layering) */}
+      <div className="absolute top-3 left-3 right-3 z-10 flex items-center justify-between pointer-events-none flex-wrap gap-2">
         
         {/* Left Radar Indicator */}
         <div className="pointer-events-auto flex items-center gap-2 bg-zinc-950/85 backdrop-blur-md px-3 py-1.5 rounded-xl border border-zinc-800 text-xs shadow-lg">
