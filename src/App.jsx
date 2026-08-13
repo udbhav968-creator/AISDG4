@@ -21,6 +21,7 @@ import MunicipalAnalytics from './components/MunicipalAnalytics';
 import BLESmartRing from './components/BLESmartRing';
 import AudioSpectrumVisualizer from './components/AudioSpectrumVisualizer';
 import VehicleTelemetryChart from './components/VehicleTelemetryChart';
+import HiTech50Suite from './components/HiTech50Suite';
 
 import { fetchTransitVehicles, fetchNightRoutes, fetchSafeHavens, triggerDiscreetSOS } from './services/api';
 import { mockNightRoutes } from './data/mockRoutes';
@@ -28,7 +29,7 @@ import { mockTransitVehicles } from './data/mockTransitData';
 import { mockSafeHavens, mockIncidents } from './data/mockSafeHavens';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('transit'); // 'transit', 'routes', 'advanced', 'safehavens', 'authority'
+  const [activeTab, setActiveTab] = useState('transit'); // 'transit', 'routes', 'suite50', 'advanced', 'safehavens', 'authority'
   
   // Data States (Fetched via REST APIs)
   const [routes, setRoutes] = useState(mockNightRoutes);
@@ -175,9 +176,10 @@ export default function App() {
         wearableConnected={wearableConnected}
       />
 
-      {/* Main Responsive Grid */}
+      {/* Main App Grid */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 lg:px-8 py-6">
         
+        {/* Responsive Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           
           {/* GIS Interactive Leaflet Map Engine (7 Cols) */}
@@ -194,7 +196,7 @@ export default function App() {
             />
           </div>
 
-          {/* Control Panel (5 Cols) with explicit bottom clearance */}
+          {/* Dedicated Control Panel (5 Cols) */}
           <div className="lg:col-span-5 space-y-6">
             {activeTab === 'transit' && (
               <div className="space-y-6">
@@ -227,6 +229,10 @@ export default function App() {
                 onSimulateReroute={handleSimulateBlackout}
                 isBlackoutSimulated={isBlackoutSimulated}
               />
+            )}
+
+            {activeTab === 'suite50' && (
+              <HiTech50Suite />
             )}
 
             {activeTab === 'advanced' && (

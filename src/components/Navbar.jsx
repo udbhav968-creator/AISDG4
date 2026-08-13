@@ -17,6 +17,7 @@ export default function Navbar({
   const tabs = [
     { id: 'transit', label: 'PS-B06 Transit Tracker', icon: Bus, color: 'text-cyan-400' },
     { id: 'routes', label: 'PS-B07 Night Safe-Routes', icon: Navigation, color: 'text-emerald-400' },
+    { id: 'suite50', label: '🚀 50 AI Models Suite', icon: Cpu, color: 'text-pink-400' },
     { id: 'advanced', label: 'AI Voice & Vault', icon: Sparkles, color: 'text-purple-400' },
     { id: 'safehavens', label: 'Safe Havens Radar', icon: Radar, color: 'text-amber-400' },
     { id: 'authority', label: 'Police 112 PCR', icon: ShieldAlert, color: 'text-red-400', badge: activeAlertCount }
