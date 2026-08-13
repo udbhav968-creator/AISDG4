@@ -18,17 +18,17 @@ function MapResizer({ mapCenter }) {
 // Tile Map Layers Map
 const MAP_LAYERS = {
   carto_dark: {
-    name: 'CartoDB Dark Glass',
+    name: 'CartoDB Dark',
     url: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
     attribution: '&copy; CARTO &copy; OpenStreetMap'
   },
   satellite_hybrid: {
-    name: 'Google Satellite View',
+    name: 'Google Satellite',
     url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
     attribution: '&copy; Esri World Imagery'
   },
   osm_standard: {
-    name: 'Standard Night GIS',
+    name: 'Night GIS',
     url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
     attribution: '&copy; OpenStreetMap'
   }
@@ -90,13 +90,13 @@ export default function MapView({
   const activeTile = MAP_LAYERS[activeLayerKey];
 
   return (
-    <div className="relative w-full h-[540px] rounded-2xl overflow-hidden glass-panel border border-zinc-800 shadow-2xl">
+    <div className="relative w-full h-[560px] rounded-2xl overflow-hidden glass-panel border border-zinc-800 shadow-2xl">
       
       {/* Map Header Status & Tile Layer Selector Bar */}
-      <div className="absolute top-3 left-3 right-3 z-[400] flex items-center justify-between pointer-events-none">
+      <div className="absolute top-3 left-3 right-3 z-[400] flex items-center justify-between pointer-events-none flex-wrap gap-2">
         
         {/* Left Radar Indicator */}
-        <div className="pointer-events-auto flex items-center gap-2 bg-zinc-950/80 backdrop-blur-md px-3 py-1.5 rounded-xl border border-zinc-800 text-xs shadow-lg">
+        <div className="pointer-events-auto flex items-center gap-2 bg-zinc-950/85 backdrop-blur-md px-3 py-1.5 rounded-xl border border-zinc-800 text-xs shadow-lg">
           <div className="flex items-center gap-1.5">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
             <span className="font-extrabold text-white">Live 5G GIS Radar</span>
@@ -105,8 +105,8 @@ export default function MapView({
           <span className="text-zinc-400 font-mono text-[11px]">Delhi NCR Corridor</span>
         </div>
 
-        {/* Right Google Maps / Dark Tile Layer Selector */}
-        <div className="pointer-events-auto flex items-center gap-1 bg-zinc-950/80 backdrop-blur-md p-1 rounded-xl border border-zinc-800 text-[11px] shadow-lg">
+        {/* Right Map Layer Selector */}
+        <div className="pointer-events-auto flex items-center gap-1 bg-zinc-950/85 backdrop-blur-md p-1 rounded-xl border border-zinc-800 text-[11px] shadow-lg">
           {Object.keys(MAP_LAYERS).map((key) => (
             <button
               key={key}

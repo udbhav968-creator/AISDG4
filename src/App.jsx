@@ -164,7 +164,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col font-sans pb-44">
+    <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col font-sans pb-48">
       {/* Top Multi-Page Navigation Bar */}
       <Navbar
         activeTab={activeTab}
@@ -175,10 +175,9 @@ export default function App() {
         wearableConnected={wearableConnected}
       />
 
-      {/* Main App Grid */}
+      {/* Main Responsive Grid */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 lg:px-8 py-6">
         
-        {/* Responsive Grid: Interactive Leaflet GIS Engine (Left) + Page Controls (Right) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           
           {/* GIS Interactive Leaflet Map Engine (7 Cols) */}
@@ -195,7 +194,7 @@ export default function App() {
             />
           </div>
 
-          {/* Scrollable Dedicated Control Panel (5 Cols) with explicit bottom padding to clear simulation bar */}
+          {/* Control Panel (5 Cols) with explicit bottom clearance */}
           <div className="lg:col-span-5 space-y-6">
             {activeTab === 'transit' && (
               <div className="space-y-6">
