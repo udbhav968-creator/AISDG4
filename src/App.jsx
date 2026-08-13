@@ -129,7 +129,7 @@ export default function App() {
               safetyScore: 32,
               lightingLevel: '12% CRITICAL BLACKOUT',
               badge: 'DANGER: BLACKOUT DETECTED',
-              explanation: '⚠️ CRITICAL: Unannounced transformer failure caused 100% lighting loss on shortcut alley. System forcefully advises against this path!'
+              explanation: '⚠️ CRITICAL: Unannounced transformer failure caused 100% lighting loss on shortcut alley. System automatically updated risk scores and rerouted trip via Main Arterial Corridor (+36% safer).'
             };
           }
           return r;
@@ -164,7 +164,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col font-sans pb-36">
+    <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col font-sans pb-44">
       {/* Top Multi-Page Navigation Bar */}
       <Navbar
         activeTab={activeTab}
@@ -175,14 +175,14 @@ export default function App() {
         wearableConnected={wearableConnected}
       />
 
-      {/* Main Multi-Page App Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 lg:px-8 py-6 space-y-8">
+      {/* Main App Grid */}
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 lg:px-8 py-6">
         
-        {/* Split Multi-Page Grid: Interactive Leaflet GIS Engine (Left) + Page Controls (Right) */}
+        {/* Responsive Grid: Interactive Leaflet GIS Engine (Left) + Page Controls (Right) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           
           {/* GIS Interactive Leaflet Map Engine (7 Cols) */}
-          <div className="lg:col-span-7 sticky top-20">
+          <div className="lg:col-span-7 sticky top-20 z-10">
             <MapView
               routes={routes}
               selectedRouteId={selectedRouteId}
@@ -195,7 +195,7 @@ export default function App() {
             />
           </div>
 
-          {/* Dedicated Page View Controls (5 Cols) */}
+          {/* Scrollable Dedicated Control Panel (5 Cols) with explicit bottom padding to clear simulation bar */}
           <div className="lg:col-span-5 space-y-6">
             {activeTab === 'transit' && (
               <div className="space-y-6">
@@ -273,7 +273,7 @@ export default function App() {
 
       </main>
 
-      {/* Floating Evaluator Simulation Toolbar */}
+      {/* Floating Evaluator Simulation Bar */}
       <SimulationBar
         onSimulateBusDeviation={() => handleSimulateBusDeviation('cab-shared-942')}
         onSimulateCabStop={() => handleSimulateCabStop('cab-shared-942')}
