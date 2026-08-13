@@ -23,6 +23,8 @@ import AudioSpectrumVisualizer from './components/AudioSpectrumVisualizer';
 import VehicleTelemetryChart from './components/VehicleTelemetryChart';
 import HiTech50Suite from './components/HiTech50Suite';
 import LiveStatsHero from './components/LiveStatsHero';
+import AudioThreatSimulator from './components/AudioThreatSimulator';
+import CrowdDensityHeatmapVisualizer from './components/CrowdDensityHeatmapVisualizer';
 
 import { fetchTransitVehicles, fetchNightRoutes, fetchSafeHavens, triggerDiscreetSOS } from './services/api';
 import { mockNightRoutes } from './data/mockRoutes';
@@ -241,6 +243,10 @@ export default function App() {
 
             {activeTab === 'advanced' && (
               <div className="space-y-6">
+                <AudioThreatSimulator 
+                  onTriggerSOS={handleTriggerWearableSOS}
+                />
+                <CrowdDensityHeatmapVisualizer />
                 <AudioSpectrumVisualizer 
                   onAutoTriggerSOS={handleTriggerWearableSOS}
                 />
