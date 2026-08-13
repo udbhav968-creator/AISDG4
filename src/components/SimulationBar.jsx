@@ -1,5 +1,5 @@
 import React from 'react';
-import { AlertCircle, ShieldAlert, Watch, Radio, Lightbulb, Compass, Clock } from 'lucide-react';
+import { Bus, Clock, Zap, ShieldAlert, Sparkles } from 'lucide-react';
 
 export default function SimulationBar({
   onSimulateBusDeviation,
@@ -9,57 +9,58 @@ export default function SimulationBar({
   isBlackoutActive
 }) {
   return (
-    <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 max-w-4xl w-[94%] bg-zinc-950/95 backdrop-blur-2xl border border-zinc-800 rounded-2xl p-3 shadow-2xl flex items-center justify-between gap-3 overflow-x-auto text-xs">
+    <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-30 max-w-4xl w-[92%] p-3 sm:p-4 rounded-2xl glass-panel border border-zinc-800 shadow-2xl bg-zinc-950/90 backdrop-blur-2xl flex items-center justify-between flex-wrap gap-2 text-zinc-100">
       
       {/* Label */}
-      <div className="flex items-center gap-2 px-2 shrink-0">
-        <div className="p-2 rounded-xl bg-pink-500/20 text-pink-400 border border-pink-500/30">
-          <Radio className="w-4 h-4 animate-pulse text-pink-400" />
+      <div className="flex items-center gap-2">
+        <div className="p-2 bg-gradient-to-tr from-pink-600 to-purple-600 rounded-xl text-white shrink-0">
+          <Sparkles className="w-4 h-4 animate-spin" />
         </div>
-        <div>
-          <span className="font-extrabold text-white text-xs block hidden sm:block">Evaluator Control Bar</span>
-          <span className="text-[10px] text-zinc-400 font-mono hidden md:block">PS-B06 & PS-B07 Live Anomaly Injector</span>
+        <div className="hidden sm:block">
+          <span className="text-xs font-black text-white tracking-wide block">Hackathon Evaluator Bar</span>
+          <span className="text-[10px] text-zinc-400">1-Click Scenario Simulators</span>
         </div>
       </div>
 
-      {/* Action Buttons */}
-      <div className="flex items-center gap-2 shrink-0">
+      {/* Simulator Quick Action Buttons */}
+      <div className="flex items-center gap-2 flex-wrap flex-1 justify-end">
         <button
           onClick={onSimulateBusDeviation}
-          className="btn-vibrant-amber px-3.5 py-2 text-white font-extrabold rounded-xl text-xs flex items-center gap-1.5 whitespace-nowrap active:scale-95"
+          className="px-3 py-1.5 bg-amber-600 hover:bg-amber-500 text-white font-extrabold text-[11px] rounded-xl flex items-center gap-1.5 active:scale-95 transition shadow-md shadow-amber-600/20"
         >
-          <Compass className="w-3.5 h-3.5" />
+          <Bus className="w-3.5 h-3.5 shrink-0" />
           <span>Sim Stray Cab</span>
         </button>
 
         <button
           onClick={onSimulateCabStop}
-          className="px-3.5 py-2 bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-white font-extrabold rounded-xl text-xs flex items-center gap-1.5 whitespace-nowrap active:scale-95 shadow-md shadow-amber-600/30 transition"
+          className="px-3 py-1.5 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-extrabold text-[11px] rounded-xl flex items-center gap-1.5 active:scale-95 transition shadow-md shadow-orange-600/20"
         >
-          <Clock className="w-3.5 h-3.5" />
-          <span>Prolonged Halt</span>
+          <Clock className="w-3.5 h-3.5 shrink-0" />
+          <span>Prolonged Stop</span>
         </button>
 
         <button
           onClick={onSimulateBlackout}
-          className={`px-3.5 py-2 font-extrabold rounded-xl text-xs flex items-center gap-1.5 whitespace-nowrap active:scale-95 transition ${
+          className={`px-3 py-1.5 font-extrabold text-[11px] rounded-xl flex items-center gap-1.5 active:scale-95 transition shadow-md ${
             isBlackoutActive
-              ? 'bg-gradient-to-r from-red-600 to-rose-600 text-white border border-red-500 shadow-lg shadow-red-600/40 animate-pulse'
-              : 'bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white shadow-md shadow-purple-600/30'
+              ? 'bg-red-600 hover:bg-red-500 text-white animate-pulse'
+              : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700'
           }`}
         >
-          <Lightbulb className="w-3.5 h-3.5" />
-          <span>{isBlackoutActive ? 'Blackout Active' : 'Night Blackout'}</span>
+          <Zap className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+          <span>{isBlackoutActive ? 'Restore Lights' : 'Sim Blackout'}</span>
         </button>
 
         <button
           onClick={onTriggerWearableSOS}
-          className="btn-vibrant-pink px-4 py-2 text-white font-extrabold rounded-xl text-xs flex items-center gap-1.5 whitespace-nowrap active:scale-95"
+          className="btn-vibrant-pink px-3.5 py-1.5 text-white font-extrabold text-[11px] rounded-xl flex items-center gap-1.5 shadow-lg shadow-pink-600/30"
         >
-          <Watch className="w-3.5 h-3.5" />
+          <ShieldAlert className="w-3.5 h-3.5 text-white shrink-0" />
           <span>Smartwatch SOS</span>
         </button>
       </div>
+
     </div>
   );
 }
