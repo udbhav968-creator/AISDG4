@@ -1,151 +1,116 @@
 import React, { useState } from 'react';
-import { 
-  ShieldCheck, 
-  MapPin, 
-  Phone, 
-  Navigation, 
-  Clock, 
-  Search, 
-  Building2, 
-  PlusCircle, 
-  UserCheck,
-  CheckCircle2,
-  Sparkles
-} from 'lucide-react';
+import { Radar, Shield, Hospital, Building2, MapPin, Navigation, Phone, CheckCircle2 } from 'lucide-react';
 
 export default function SafeHavenRadar({ safeHavens = [], onNavigateToHaven }) {
-  const [filter, setFilter] = useState('all');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [filter, setFilter] = useState('ALL');
 
   const filteredHavens = safeHavens.filter((sh) => {
-    const matchesFilter = filter === 'all' || sh.category === filter;
-    const matchesSearch = sh.name.toLowerCase().includes(searchQuery.toLowerCase()) || sh.address.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesFilter && matchesSearch;
+    if (filter === 'POLICE') return sh.type === 'POLICE_BOOTH';
+    if (filter === 'HOSPITAL') return sh.type === 'HOSPITAL';
+    if (filter === 'SANCTUARY') return sh.type === 'COMMERCIAL_SANCTUARY';
+    return true;
   });
 
   return (
-    <div className="space-y-6">
-      {/* Header Banner */}
-      <div className="p-4 rounded-2xl glass-panel border border-pink-500/30 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2">
-            <h2 className="text-xl font-extrabold text-white font-outfit">Nearest Safe-Location Radar</h2>
-            <span className="px-2 py-0.5 text-[10px] font-bold bg-purple-500/20 text-purple-400 border border-purple-500/40 rounded-full">
-              24/7 SANCTUARY NET
-            </span>
+    <div className="p-4 sm:p-5 rounded-2xl glass-panel border border-zinc-800 space-y-4 w-full">
+      
+      {/* Header */}
+      <div className="flex items-center justify-between pb-3 border-b border-zinc-800 gap-2 flex-wrap">
+        <div className="flex items-center gap-2.5">
+          <div className="p-2.5 bg-gradient-to-tr from-amber-500/20 to-orange-500/20 text-amber-400 rounded-xl border border-amber-500/30 shrink-0">
+            <Radar className="w-5 h-5" />
           </div>
-          <p className="text-xs text-zinc-400 mt-1">
-            Verified Pink Police Booths, 24/7 open pharmacies, hospitals, and police patrol points within immediate walking distance.
-          </p>
+          <div>
+            <h2 className="text-base font-extrabold text-white tracking-wide leading-tight">
+              24/7 Safe Haven Radar
+            </h2>
+            <p className="text-xs text-zinc-400">Pink Police Booths, Hospitals & Commercial Sanctuaries</p>
+          </div>
         </div>
 
-        {/* Search Bar */}
-        <div className="relative w-full md:w-64">
-          <Search className="w-4 h-4 text-zinc-400 absolute left-3 top-2.5" />
-          <input
-            type="text"
-            placeholder="Search safe spots..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 bg-zinc-900 border border-zinc-800 rounded-xl text-xs text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-pink-500"
-          />
-        </div>
-      </div>
-
-      {/* Category Filter Chips */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-1">
-        <button
-          onClick={() => setFilter('all')}
-          className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap border transition-all ${
-            filter === 'all' ? 'bg-pink-600 text-white border-pink-500' : 'bg-zinc-900 text-zinc-400 border-zinc-800 hover:bg-zinc-800'
-          }`}
-        >
-          All Safe Sanctuaries
-        </button>
-
-        <button
-          onClick={() => setFilter('police')}
-          className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap border transition-all ${
-            filter === 'police' ? 'bg-purple-600 text-white border-purple-500' : 'bg-zinc-900 text-zinc-400 border-zinc-800 hover:bg-zinc-800'
-          }`}
-        >
-          🚔 Pink Booths & Police
-        </button>
-
-        <button
-          onClick={() => setFilter('medical')}
-          className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap border transition-all ${
-            filter === 'medical' ? 'bg-blue-600 text-white border-blue-500' : 'bg-zinc-900 text-zinc-400 border-zinc-800 hover:bg-zinc-800'
-          }`}
-        >
-          🏥 24/7 Hospitals
-        </button>
-
-        <button
-          onClick={() => setFilter('safe_zone')}
-          className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap border transition-all ${
-            filter === 'safe_zone' ? 'bg-emerald-600 text-white border-emerald-500' : 'bg-zinc-900 text-zinc-400 border-zinc-800 hover:bg-zinc-800'
-          }`}
-        >
-          🏪 Open Stores & Cafes
-        </button>
-      </div>
-
-      {/* Grid of Safe Sanctuary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {filteredHavens.map((sh) => (
-          <div
-            key={sh.id}
-            className="p-5 rounded-2xl bg-zinc-900/80 border border-zinc-800 hover:border-zinc-700 transition-all space-y-3 flex flex-col justify-between"
+        {/* Filter Pills */}
+        <div className="flex items-center gap-1 bg-zinc-900 p-1 rounded-xl border border-zinc-800 text-[11px]">
+          <button
+            onClick={() => setFilter('ALL')}
+            className={`px-2.5 py-1 rounded-lg font-bold transition ${
+              filter === 'ALL' ? 'bg-amber-600 text-white' : 'text-zinc-400 hover:text-white'
+            }`}
           >
-            <div>
-              <div className="flex items-center justify-between gap-2">
-                <span className={`px-2.5 py-0.5 text-[10px] font-extrabold rounded-full border ${
-                  sh.category === 'police' ? 'bg-purple-500/20 text-purple-300 border-purple-500/40' :
-                  sh.category === 'medical' ? 'bg-blue-500/20 text-blue-300 border-blue-500/40' :
-                  'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'
-                }`}>
-                  {sh.type}
-                </span>
+            All
+          </button>
+          <button
+            onClick={() => setFilter('POLICE')}
+            className={`px-2.5 py-1 rounded-lg font-bold transition ${
+              filter === 'POLICE' ? 'bg-pink-600 text-white' : 'text-zinc-400 hover:text-white'
+            }`}
+          >
+            Pink Booths
+          </button>
+          <button
+            onClick={() => setFilter('HOSPITAL')}
+            className={`px-2.5 py-1 rounded-lg font-bold transition ${
+              filter === 'HOSPITAL' ? 'bg-emerald-600 text-white' : 'text-zinc-400 hover:text-white'
+            }`}
+          >
+            Hospitals
+          </button>
+        </div>
+      </div>
 
-                <span className="text-xs font-extrabold text-pink-400 flex items-center gap-1">
-                  <MapPin className="w-3.5 h-3.5" /> {sh.distance}
+      {/* Safe Haven Cards List - Single Column Stack */}
+      <div className="flex flex-col space-y-3 w-full">
+        {filteredHavens.map((sh) => {
+          const isPolice = sh.type === 'POLICE_BOOTH';
+          const isHospital = sh.type === 'HOSPITAL';
+
+          return (
+            <div
+              key={sh.id}
+              className="w-full p-4 rounded-xl bg-zinc-900/80 border border-zinc-800 hover-blister space-y-3"
+            >
+              <div className="flex items-start justify-between gap-2">
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="font-extrabold text-sm text-white">{sh.name}</span>
+                    <span className={`px-2 py-0.5 text-[10px] font-extrabold rounded-md uppercase tracking-wider ${
+                      isPolice
+                        ? 'bg-pink-500/20 text-pink-300 border border-pink-500/30'
+                        : isHospital
+                        ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
+                        : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
+                    }`}>
+                      {sh.type.replace('_', ' ')}
+                    </span>
+                  </div>
+                  <p className="text-xs text-zinc-400 flex items-center gap-1">
+                    <MapPin className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                    <span>{sh.address}</span>
+                  </p>
+                </div>
+
+                <span className="text-xs font-black text-amber-400 font-mono shrink-0">
+                  {sh.distance}
                 </span>
               </div>
 
-              <h3 className="text-base font-bold text-white mt-2">{sh.name}</h3>
-              <p className="text-xs text-zinc-400 mt-0.5">{sh.address}</p>
+              {/* Actions */}
+              <div className="flex items-center justify-between pt-2 border-t border-zinc-800 text-xs gap-2 flex-wrap">
+                <span className="text-zinc-400 font-mono flex items-center gap-1">
+                  <Phone className="w-3.5 h-3.5 text-zinc-400" />
+                  <span>{sh.contact}</span>
+                </span>
 
-              {/* Feature Tags */}
-              <div className="mt-3 flex flex-wrap gap-1.5">
-                {sh.features.map((feat, idx) => (
-                  <span key={idx} className="px-2 py-0.5 bg-zinc-950 border border-zinc-800 rounded text-[10px] text-zinc-300">
-                    ✓ {feat}
-                  </span>
-                ))}
+                <button
+                  onClick={() => onNavigateToHaven(sh.location)}
+                  className="px-3.5 py-1.5 bg-amber-600 hover:bg-amber-500 text-white font-extrabold text-xs rounded-xl shadow transition flex items-center gap-1.5 active:scale-95 shrink-0"
+                >
+                  <Navigation className="w-3.5 h-3.5" />
+                  <span>Dash Route</span>
+                </button>
               </div>
             </div>
-
-            {/* Card Action Footer */}
-            <div className="pt-3 border-t border-zinc-800 flex items-center justify-between gap-2">
-              <a
-                href={`tel:${sh.contact.split('/')[0].trim()}`}
-                className="flex items-center gap-1.5 px-3 py-2 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-semibold rounded-xl border border-zinc-700"
-              >
-                <Phone className="w-3.5 h-3.5 text-emerald-400" />
-                <span>Call Helpline</span>
-              </a>
-
-              <button
-                onClick={() => onNavigateToHaven(sh.coordinates)}
-                className="flex items-center gap-1.5 px-4 py-2 bg-pink-600 hover:bg-pink-500 text-white text-xs font-bold rounded-xl shadow-md shadow-pink-600/20"
-              >
-                <Navigation className="w-3.5 h-3.5" />
-                <span>Guide Me Here</span>
-              </button>
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

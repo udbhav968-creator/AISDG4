@@ -9,7 +9,7 @@
   }
 }
 
-/* Force Leaflet Map Panes to Low z-index so Modals ALWAYS Stay On Top */
+/* Master Z-Index Rules: Leaflet Panes Always Stay at z-index 0 */
 .leaflet-container,
 .leaflet-pane,
 .leaflet-top,
@@ -20,7 +20,7 @@
 .leaflet-marker-pane,
 .leaflet-tooltip-pane,
 .leaflet-popup-pane {
-  z-index: 1 !important;
+  z-index: 0 !important;
 }
 
 /* Glassmorphism & Smooth Scrolling */
