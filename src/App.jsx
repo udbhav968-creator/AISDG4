@@ -22,6 +22,7 @@ import BLESmartRing from './components/BLESmartRing';
 import AudioSpectrumVisualizer from './components/AudioSpectrumVisualizer';
 import VehicleTelemetryChart from './components/VehicleTelemetryChart';
 import HiTech50Suite from './components/HiTech50Suite';
+import LiveStatsHero from './components/LiveStatsHero';
 
 import { fetchTransitVehicles, fetchNightRoutes, fetchSafeHavens, triggerDiscreetSOS } from './services/api';
 import { mockNightRoutes } from './data/mockRoutes';
@@ -176,9 +177,12 @@ export default function App() {
         wearableConnected={wearableConnected}
       />
 
-      {/* Main App Grid */}
+      {/* Main App Container */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 lg:px-8 py-6">
         
+        {/* Top Real-Time Telemetry Hero Banner */}
+        <LiveStatsHero />
+
         {/* Responsive Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           
