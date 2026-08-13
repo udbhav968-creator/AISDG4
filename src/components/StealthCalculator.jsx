@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
 import { Calculator, ShieldAlert, X } from 'lucide-react';
 
 export default function StealthCalculator({ isOpen, onClose, onSecretSOSTrigger }) {
@@ -34,10 +35,10 @@ export default function StealthCalculator({ isOpen, onClose, onSecretSOSTrigger 
     }
   };
 
-  return (
+  const modalContent = (
     <div 
       className="fixed inset-0 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md"
-      style={{ zIndex: 99999, isolation: 'isolate' }}
+      style={{ zIndex: 999999, isolation: 'isolate' }}
     >
       <div className="relative w-full max-w-xs bg-zinc-900 border border-zinc-800 rounded-2xl p-4 shadow-2xl space-y-3 text-zinc-100">
         
@@ -74,4 +75,6 @@ export default function StealthCalculator({ isOpen, onClose, onSecretSOSTrigger 
       </div>
     </div>
   );
+
+  return ReactDOM.createPortal(modalContent, document.body);
 }

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import ReactDOM from 'react-dom';
 import { ShieldAlert, PhoneCall, CheckCircle2, AlertTriangle, X, Radio, MapPin, Video, Lock } from 'lucide-react';
 
 export default function DiscreetSOSModal({ isOpen, onClose, onAlertDispatched, activeVehicle }) {
@@ -39,10 +40,10 @@ export default function DiscreetSOSModal({ isOpen, onClose, onAlertDispatched, a
     if (onAlertDispatched) onAlertDispatched(newAlert);
   };
 
-  return (
+  const modalContent = (
     <div 
       className="fixed inset-0 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md"
-      style={{ zIndex: 99999, isolation: 'isolate' }}
+      style={{ zIndex: 999999, isolation: 'isolate' }}
     >
       <div className="relative w-full max-w-md bg-zinc-900 border border-zinc-700 rounded-2xl p-6 shadow-2xl space-y-4 text-zinc-100">
         
@@ -123,4 +124,6 @@ export default function DiscreetSOSModal({ isOpen, onClose, onAlertDispatched, a
       </div>
     </div>
   );
+
+  return ReactDOM.createPortal(modalContent, document.body);
 }
