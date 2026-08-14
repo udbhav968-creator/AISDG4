@@ -4,8 +4,13 @@
 
 @layer base {
   body {
-    @apply bg-zinc-950 text-zinc-100 font-sans antialiased selection:bg-pink-500 selection:text-white overflow-x-hidden;
-    background-color: #09090b;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    @apply bg-zinc-950 text-zinc-100 antialiased selection:bg-pink-500 selection:text-white overflow-x-hidden;
+    background-color: #08080a;
+  }
+
+  code, pre, .font-mono {
+    font-family: 'JetBrains Mono', monospace;
   }
 }
 
@@ -13,7 +18,7 @@
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
@@ -22,18 +27,24 @@
 }
 
 .animate-fadeIn {
-  animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: fadeIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* 
-  MASTER LEAFLET ULTRA-DARK HIGH-TECH TILE FILTER:
-  Standard OpenStreetMap tiles transformed via CSS inversion (invert(100%) hue-rotate(180deg) brightness(0.85) contrast(1.15)).
-  This guarantees a pitch-black map background that NEVER turns light gray under ANY network condition!
-*/
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.8; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+.animate-pulseGlow {
+  animation: pulseGlow 2.5s infinite ease-in-out;
+}
+
+/* Master Leaflet Dark Theme & Tile Inversion Override */
 .leaflet-container {
-  background-color: #09090b !important;
-  background: #09090b !important;
+  background-color: #08080a !important;
+  background: #08080a !important;
   z-index: 0 !important;
+  border-radius: 1rem;
 }
 
 .leaflet-pane,
@@ -46,85 +57,54 @@
 .leaflet-tooltip-pane,
 .leaflet-popup-pane,
 .leaflet-tile-container {
-  background-color: #09090b !important;
-  background: #09090b !important;
+  background-color: #08080a !important;
+  background: #08080a !important;
   z-index: 0 !important;
 }
 
 .leaflet-tile {
   filter: invert(100%) hue-rotate(180deg) brightness(0.85) contrast(1.15) !important;
-  background-color: #09090b !important;
+  background-color: #08080a !important;
 }
 
 .leaflet-tile-loaded {
-  background-color: #09090b !important;
+  background-color: #08080a !important;
 }
 
-/* Vibrant Page Color Identity Utility Classes */
-.theme-cyan-border {
-  border-color: rgba(6, 182, 212, 0.4);
-  box-shadow: 0 8px 30px -6px rgba(6, 182, 212, 0.15);
-}
-
-.theme-emerald-border {
-  border-color: rgba(16, 185, 129, 0.4);
-  box-shadow: 0 8px 30px -6px rgba(16, 185, 129, 0.15);
-}
-
-.theme-pink-border {
-  border-color: rgba(236, 72, 153, 0.4);
-  box-shadow: 0 8px 30px -6px rgba(236, 72, 153, 0.15);
-}
-
-.theme-purple-border {
-  border-color: rgba(168, 85, 247, 0.4);
-  box-shadow: 0 8px 30px -6px rgba(168, 85, 247, 0.15);
-}
-
-.theme-amber-border {
-  border-color: rgba(245, 158, 11, 0.4);
-  box-shadow: 0 8px 30px -6px rgba(245, 158, 11, 0.15);
-}
-
-.theme-red-border {
-  border-color: rgba(239, 68, 68, 0.4);
-  box-shadow: 0 8px 30px -6px rgba(239, 68, 68, 0.15);
-}
-
-/* Glassmorphism & Smooth Scrolling */
+/* Enterprise Glassmorphism Panels */
 html {
   scroll-behavior: smooth;
 }
 
 .glass-panel {
-  background: rgba(18, 18, 24, 0.88);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(63, 63, 70, 0.45);
-  box-shadow: 0 12px 36px -8px rgba(0, 0, 0, 0.65);
-  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  background: rgba(14, 14, 20, 0.88);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(63, 63, 70, 0.4);
+  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.7);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .glass-panel:hover {
-  border-color: rgba(236, 72, 153, 0.4);
-  box-shadow: 0 16px 40px -8px rgba(236, 72, 153, 0.15);
+  border-color: rgba(236, 72, 153, 0.45);
+  box-shadow: 0 20px 45px -10px rgba(236, 72, 153, 0.15);
 }
 
 .glass-nav {
-  background: rgba(10, 10, 14, 0.94);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border-bottom: 1px solid rgba(63, 63, 70, 0.5);
+  background: rgba(8, 8, 12, 0.94);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border-bottom: 1px solid rgba(63, 63, 70, 0.45);
 }
 
 /* Card Hover Elevation */
 .hover-blister {
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
 }
 
 .hover-blister:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 28px -6px rgba(0, 0, 0, 0.7);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.8);
 }
 
 /* Leaflet Popup Custom Styling */
@@ -148,7 +128,7 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-  background: #09090b;
+  background: #08080a;
 }
 
 ::-webkit-scrollbar-thumb {
