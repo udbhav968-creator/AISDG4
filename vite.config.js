@@ -6,13 +6,9 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 3000,
-    open: true,
-    sourcemapIgnoreList: () => true
+    open: false
   },
   build: {
     sourcemap: false
-  },
-  css: {
-    devSourcemap: false
   }
 })
