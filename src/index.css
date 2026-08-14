@@ -26,11 +26,16 @@
 }
 
 /* 
-  MASTER LEAFLET TILE FIX: 
-  Force ALL map containers & tiles to have a dark background (#09090b / #18181b). 
-  Guarantees map NEVER turns light gray (#ddd) even if tile networks lag.
+  MASTER LEAFLET ULTRA-DARK HIGH-TECH TILE FILTER:
+  Standard OpenStreetMap tiles transformed via CSS inversion (invert(100%) hue-rotate(180deg) brightness(0.85) contrast(1.15)).
+  This guarantees a pitch-black map background that NEVER turns light gray under ANY network condition!
 */
-.leaflet-container,
+.leaflet-container {
+  background-color: #09090b !important;
+  background: #09090b !important;
+  z-index: 0 !important;
+}
+
 .leaflet-pane,
 .leaflet-top,
 .leaflet-bottom,
@@ -40,7 +45,6 @@
 .leaflet-marker-pane,
 .leaflet-tooltip-pane,
 .leaflet-popup-pane,
-.leaflet-tile,
 .leaflet-tile-container {
   background-color: #09090b !important;
   background: #09090b !important;
@@ -48,8 +52,8 @@
 }
 
 .leaflet-tile {
-  filter: brightness(0.85) contrast(1.15) saturate(1.2);
-  background-color: #18181b !important;
+  filter: invert(100%) hue-rotate(180deg) brightness(0.85) contrast(1.15) !important;
+  background-color: #09090b !important;
 }
 
 .leaflet-tile-loaded {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Bus, Clock, Zap, ShieldAlert, Sparkles } from 'lucide-react';
+import { AlertTriangle, Moon, ShieldAlert, Radio, Clock, Play } from 'lucide-react';
 
 export default function SimulationBar({
   onSimulateBusDeviation,
@@ -9,58 +9,90 @@ export default function SimulationBar({
   isBlackoutActive
 }) {
   return (
-    <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-30 max-w-4xl w-[92%] p-3 sm:p-4 rounded-2xl glass-panel border border-zinc-800 shadow-2xl bg-zinc-950/90 backdrop-blur-2xl flex items-center justify-between flex-wrap gap-2 text-zinc-100">
-      
-      {/* Label */}
-      <div className="flex items-center gap-2">
-        <div className="p-2 bg-gradient-to-tr from-pink-600 to-purple-600 rounded-xl text-white shrink-0">
-          <Sparkles className="w-4 h-4 animate-spin" />
+    <div className="w-full my-6 p-4 rounded-2xl glass-panel border border-zinc-800 bg-zinc-950/90 shadow-2xl space-y-3">
+      <div className="flex items-center justify-between border-b border-zinc-800 pb-2.5 px-1">
+        <div className="flex items-center gap-2">
+          <span className="p-1.5 bg-pink-500/10 text-pink-400 rounded-lg">
+            <Play className="w-4 h-4" />
+          </span>
+          <div>
+            <h3 className="text-xs font-black text-white uppercase tracking-wider">
+              Hackathon Evaluator Simulation Sandbox
+            </h3>
+            <p className="text-[11px] text-zinc-400 font-mono">
+              Trigger real-time PS-B06 & PS-B07 emergency anomalies & live AI rerouting
+            </p>
+          </div>
         </div>
-        <div className="hidden sm:block">
-          <span className="text-xs font-black text-white tracking-wide block">Hackathon Evaluator Bar</span>
-          <span className="text-[10px] text-zinc-400">1-Click Scenario Simulators</span>
-        </div>
+
+        <span className="px-2.5 py-1 text-[10px] font-mono font-bold bg-pink-500/20 text-pink-300 border border-pink-500/30 rounded-full hidden sm:inline">
+          LIVE DEMO CONTROLS
+        </span>
       </div>
 
-      {/* Simulator Quick Action Buttons */}
-      <div className="flex items-center gap-2 flex-wrap flex-1 justify-end">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+        
+        {/* Simulator 1: Route Deviation */}
         <button
           onClick={onSimulateBusDeviation}
-          className="px-3 py-1.5 bg-amber-600 hover:bg-amber-500 text-white font-extrabold text-[11px] rounded-xl flex items-center gap-1.5 active:scale-95 transition shadow-md shadow-amber-600/20"
+          className="p-3 bg-red-950/40 hover:bg-red-900/60 border border-red-500/30 hover:border-red-500 rounded-xl text-left transition space-y-1 group cursor-pointer"
         >
-          <Bus className="w-3.5 h-3.5 shrink-0" />
-          <span>Sim Stray Cab</span>
+          <div className="flex items-center justify-between text-red-400">
+            <AlertTriangle className="w-4 h-4 group-hover:scale-110 transition" />
+            <span className="text-[9px] font-mono font-bold bg-red-500/20 px-1.5 py-0.5 rounded">PS-B06</span>
+          </div>
+          <span className="text-xs font-black text-white block">Route Deviation</span>
+          <span className="text-[10px] text-zinc-400 block truncate">Stray cab off-route into alley</span>
         </button>
 
+        {/* Simulator 2: Prolonged Halt */}
         <button
           onClick={onSimulateCabStop}
-          className="px-3 py-1.5 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-extrabold text-[11px] rounded-xl flex items-center gap-1.5 active:scale-95 transition shadow-md shadow-orange-600/20"
+          className="p-3 bg-amber-950/40 hover:bg-amber-900/60 border border-amber-500/30 hover:border-amber-500 rounded-xl text-left transition space-y-1 group cursor-pointer"
         >
-          <Clock className="w-3.5 h-3.5 shrink-0" />
-          <span>Prolonged Stop</span>
+          <div className="flex items-center justify-between text-amber-400">
+            <Clock className="w-4 h-4 group-hover:scale-110 transition" />
+            <span className="text-[9px] font-mono font-bold bg-amber-500/20 px-1.5 py-0.5 rounded">PS-B06</span>
+          </div>
+          <span className="text-xs font-black text-white block">Unsafe Prolonged Halt</span>
+          <span className="text-[10px] text-zinc-400 block truncate">Cab stationary &gt;4.5 mins</span>
         </button>
 
+        {/* Simulator 3: Streetlight Blackout */}
         <button
           onClick={onSimulateBlackout}
-          className={`px-3 py-1.5 font-extrabold text-[11px] rounded-xl flex items-center gap-1.5 active:scale-95 transition shadow-md ${
+          className={`p-3 border rounded-xl text-left transition space-y-1 group cursor-pointer ${
             isBlackoutActive
-              ? 'bg-red-600 hover:bg-red-500 text-white animate-pulse'
-              : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700'
+              ? 'bg-purple-900/80 border-purple-400 text-white shadow-lg shadow-purple-500/30'
+              : 'bg-purple-950/40 hover:bg-purple-900/60 border-purple-500/30 hover:border-purple-500'
           }`}
         >
-          <Zap className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-          <span>{isBlackoutActive ? 'Restore Lights' : 'Sim Blackout'}</span>
+          <div className="flex items-center justify-between text-purple-400">
+            <Moon className="w-4 h-4 group-hover:scale-110 transition" />
+            <span className="text-[9px] font-mono font-bold bg-purple-500/20 px-1.5 py-0.5 rounded">PS-B07</span>
+          </div>
+          <span className="text-xs font-black text-white block">
+            {isBlackoutActive ? '⚡ Reset Streetlights' : '🌙 Trigger Blackout Reroute'}
+          </span>
+          <span className="text-[10px] text-zinc-400 block truncate">
+            {isBlackoutActive ? 'Restore 100% lighting' : 'Simulate 0% lighting failure'}
+          </span>
         </button>
 
+        {/* Simulator 4: Discreet Smartwatch SOS */}
         <button
           onClick={onTriggerWearableSOS}
-          className="btn-vibrant-pink px-3.5 py-1.5 text-white font-extrabold text-[11px] rounded-xl flex items-center gap-1.5 shadow-lg shadow-pink-600/30"
+          className="p-3 bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 border border-pink-400 rounded-xl text-left text-white shadow-lg shadow-pink-600/30 transition space-y-1 group cursor-pointer"
         >
-          <ShieldAlert className="w-3.5 h-3.5 text-white shrink-0" />
-          <span>Smartwatch SOS</span>
+          <div className="flex items-center justify-between text-white">
+            <Radio className="w-4 h-4 group-hover:scale-110 transition animate-pulse" />
+            <span className="text-[9px] font-mono font-bold bg-white/20 px-1.5 py-0.5 rounded">WEARABLE</span>
+          </div>
+          <span className="text-xs font-black block">Discreet SOS Trigger</span>
+          <span className="text-[10px] text-pink-100 block truncate font-mono">Silent Double-Tap SOS</span>
         </button>
-      </div>
 
+      </div>
     </div>
   );
 }
