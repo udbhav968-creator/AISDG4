@@ -15,7 +15,7 @@ function MapResizer({ mapCenter }) {
   return null;
 }
 
-// Map Tile Providers
+// Map Tile Providers (High Uptime CDN Endpoints)
 const MAP_LAYERS = {
   carto_dark: {
     name: 'CartoDB Dark',
@@ -90,13 +90,16 @@ export default function MapView({
   const activeTile = MAP_LAYERS[activeLayerKey];
 
   return (
-    <div className="relative w-full h-[380px] sm:h-[480px] lg:h-[560px] rounded-2xl overflow-hidden glass-panel border border-zinc-800 shadow-2xl bg-zinc-950">
+    <div 
+      className="relative w-full h-[380px] sm:h-[480px] lg:h-[560px] rounded-2xl overflow-hidden border border-zinc-800 shadow-2xl"
+      style={{ backgroundColor: '#09090b', background: '#09090b' }}
+    >
       
       {/* Map Header Status & Tile Layer Selector Bar (z-10 for clean layering) */}
       <div className="absolute top-3 left-3 right-3 z-10 flex items-center justify-between pointer-events-none flex-wrap gap-2">
         
         {/* Left Radar Indicator */}
-        <div className="pointer-events-auto flex items-center gap-2 bg-zinc-950/85 backdrop-blur-md px-3 py-1.5 rounded-xl border border-zinc-800 text-xs shadow-lg">
+        <div className="pointer-events-auto flex items-center gap-2 bg-zinc-950/90 backdrop-blur-md px-3 py-1.5 rounded-xl border border-zinc-800 text-xs shadow-lg">
           <div className="flex items-center gap-1.5">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
             <span className="font-extrabold text-white">Live 5G GIS Radar</span>
@@ -106,12 +109,12 @@ export default function MapView({
         </div>
 
         {/* Right Map Layer Selector */}
-        <div className="pointer-events-auto flex items-center gap-1 bg-zinc-950/85 backdrop-blur-md p-1 rounded-xl border border-zinc-800 text-[11px] shadow-lg">
+        <div className="pointer-events-auto flex items-center gap-1 bg-zinc-950/90 backdrop-blur-md p-1 rounded-xl border border-zinc-800 text-[11px] shadow-lg">
           {Object.keys(MAP_LAYERS).map((key) => (
             <button
               key={key}
               onClick={() => setActiveLayerKey(key)}
-              className={`px-2.5 py-1 rounded-lg font-semibold transition ${
+              className={`px-2.5 py-1 rounded-lg font-semibold transition cursor-pointer ${
                 activeLayerKey === key
                   ? 'bg-pink-600 text-white shadow'
                   : 'text-zinc-400 hover:text-white hover:bg-zinc-800'
@@ -128,7 +131,7 @@ export default function MapView({
         center={mapCenter}
         zoom={13}
         scrollWheelZoom={true}
-        style={{ width: '100%', height: '100%', background: '#09090b' }}
+        style={{ width: '100%', height: '100%', background: '#09090b', backgroundColor: '#09090b' }}
       >
         <MapResizer mapCenter={mapCenter} />
 
