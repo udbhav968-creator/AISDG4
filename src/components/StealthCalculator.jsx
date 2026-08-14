@@ -1,11 +1,20 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-import { Calculator, ShieldAlert, X } from 'lucide-react';
+import { Calculator, X } from 'lucide-react';
 
 export default function StealthCalculator({ isOpen, onClose, onSecretSOSTrigger }) {
   const [display, setDisplay] = useState('0');
 
   if (!isOpen) return null;
+
+  const safeEvaluate = (expr) => {
+    try {
+      const sanitized = expr.replace(/[^0-9+\-*/.]/g, '');
+      return Function(`'use strict'; return (${sanitized})`)();
+    } catch {
+      return 'Error';
+    }
+  };
 
   const handleBtnClick = (val) => {
     if (val === 'C') {
@@ -20,11 +29,7 @@ export default function StealthCalculator({ isOpen, onClose, onSecretSOSTrigger 
         setTimeout(() => onClose(), 2000);
         return;
       }
-      try {
-        setDisplay(String(eval(display)));
-      } catch {
-        setDisplay('Error');
-      }
+      setDisplay(String(safeEvaluate(display)));
       return;
     }
 
