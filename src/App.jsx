@@ -32,7 +32,7 @@ import { mockTransitVehicles } from './data/mockTransitData';
 import { mockSafeHavens, mockIncidents } from './data/mockSafeHavens';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('transit'); // 'transit', 'routes', 'suite50', 'advanced', 'safehavens', 'authority'
+  const [activeTab, setActiveTab] = useState('transit'); // 'transit' (Page 1), 'routes' (Page 2), 'suite50' (Page 3), 'advanced' (Page 4), 'safehavens' (Page 5), 'authority' (Page 6)
   
   // Data States (Fetched via REST APIs)
   const [routes, setRoutes] = useState(mockNightRoutes);
@@ -180,32 +180,36 @@ export default function App() {
       />
 
       {/* Main App Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 lg:px-8 py-6">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 lg:px-8 py-6 space-y-6">
         
         {/* Top Real-Time Telemetry Hero Banner */}
         <LiveStatsHero />
 
-        {/* Responsive Grid - Clean non-overlapping column flow */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-          
-          {/* GIS Interactive Leaflet Map Engine (7 Cols) */}
-          <div className="lg:col-span-7">
-            <MapView
-              routes={routes}
-              selectedRouteId={selectedRouteId}
-              vehicles={vehicles}
-              selectedVehicleId={selectedVehicleId}
-              safeHavens={safeHavens}
-              incidents={incidents}
-              mapCenter={mapCenter}
-              activeAlert={activeAlert}
-            />
-          </div>
+        {/* PAGE 1 (FRONT PAGE): PS-B06 Transit Tracker with GIS Map */}
+        {activeTab === 'transit' && (
+          <div className="animate-fadeIn space-y-6">
+            <div className="p-3 bg-cyan-500/10 border border-cyan-500/30 rounded-xl text-cyan-300 text-xs font-mono flex items-center justify-between flex-wrap gap-2">
+              <span className="font-bold">📍 FRONT PAGE: PS-B06 REAL-TIME PUBLIC TRANSPORT SAFETY & GIS MAP ENGINE</span>
+              <span className="text-[11px] bg-cyan-500/20 px-2 py-0.5 rounded border border-cyan-500/40">5G GPS MAP MOUNTED</span>
+            </div>
 
-          {/* Dedicated Control Panel (5 Cols) */}
-          <div className="lg:col-span-5 space-y-6">
-            {activeTab === 'transit' && (
-              <div className="space-y-6">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+              {/* GIS Interactive Leaflet Map Engine (7 Cols) */}
+              <div className="lg:col-span-7">
+                <MapView
+                  routes={routes}
+                  selectedRouteId={selectedRouteId}
+                  vehicles={vehicles}
+                  selectedVehicleId={selectedVehicleId}
+                  safeHavens={safeHavens}
+                  incidents={incidents}
+                  mapCenter={mapCenter}
+                  activeAlert={activeAlert}
+                />
+              </div>
+
+              {/* Transit Controls & CCTV Stream (5 Cols) */}
+              <div className="lg:col-span-5 space-y-6">
                 <TransitTracker
                   vehicles={vehicles}
                   selectedVehicleId={selectedVehicleId}
@@ -221,70 +225,102 @@ export default function App() {
                   selectedVehicle={vehicles.find((v) => v.id === selectedVehicleId)} 
                 />
               </div>
-            )}
+            </div>
+          </div>
+        )}
 
-            {activeTab === 'routes' && (
+        {/* PAGE 2: PS-B07 Night Safe-Routes Engine (Full Width 12 Cols - No Map Interference) */}
+        {activeTab === 'routes' && (
+          <div className="animate-fadeIn space-y-6">
+            <div className="p-3 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-emerald-300 text-xs font-mono flex items-center justify-between flex-wrap gap-2">
+              <span className="font-bold">🛣️ PAGE 2: PS-B07 DYNAMIC NIGHT SAFE-ROUTES ENGINE & ILLUMINATION INDEX</span>
+              <span className="text-[11px] bg-emerald-500/20 px-2 py-0.5 rounded border border-emerald-500/40">FULL-WIDTH CLEAN LAYOUT</span>
+            </div>
+
+            <div className="w-full">
               <RoutePlanner
                 routes={routes}
                 selectedRouteId={selectedRouteId}
-                onSelectRoute={(id) => {
-                  setSelectedRouteId(id);
-                  const rt = routes.find((r) => r.id === id);
-                  if (rt && rt.path.length > 0) setMapCenter(rt.path[0]);
-                }}
+                onSelectRoute={(id) => setSelectedRouteId(id)}
                 onSimulateReroute={handleSimulateBlackout}
                 isBlackoutSimulated={isBlackoutSimulated}
               />
-            )}
+            </div>
+          </div>
+        )}
 
-            {activeTab === 'suite50' && (
+        {/* PAGE 3: 🚀 50 Hi-Tech AI Models Suite (Full Width 12 Cols) */}
+        {activeTab === 'suite50' && (
+          <div className="animate-fadeIn space-y-6">
+            <div className="p-3 bg-pink-500/10 border border-pink-500/30 rounded-xl text-pink-300 text-xs font-mono flex items-center justify-between flex-wrap gap-2">
+              <span className="font-bold">🚀 PAGE 3: 50 HI-TECH AI MODELS, CV ANALYTICS & MICROSERVICES SUITE</span>
+              <span className="text-[11px] bg-pink-500/20 px-2 py-0.5 rounded border border-pink-500/40">50 MODELS ONLINE</span>
+            </div>
+
+            <div className="w-full">
               <HiTech50Suite />
-            )}
+            </div>
+          </div>
+        )}
 
-            {activeTab === 'advanced' && (
-              <div className="space-y-6">
-                <AudioThreatSimulator 
-                  onTriggerSOS={handleTriggerWearableSOS}
-                />
-                <CrowdDensityHeatmapVisualizer />
-                <AudioSpectrumVisualizer 
-                  onAutoTriggerSOS={handleTriggerWearableSOS}
-                />
-                <SurakshaCopilot 
-                  onNavigateToHaven={handleNavigateToHaven}
-                  onSelectVehicle={setSelectedVehicleId}
-                />
-                <WhatsAppBotBridge 
-                  activeVehicle={vehicles.find((v) => v.id === selectedVehicleId)}
-                />
-                <BLESmartRing 
-                  onTriggerSOS={handleTriggerWearableSOS}
-                />
-                <VoiceDistressListener onAutoTriggerSOS={handleTriggerWearableSOS} />
-                <MunicipalAnalytics />
-                <PinkCompanion />
-                <OfflineMeshRelay />
-                <EvidenceVault />
-                <CommunitySafetyAudit />
-              </div>
-            )}
+        {/* PAGE 4: AI Voice & Acoustic Vault (Full Width Grid - No Map Interference) */}
+        {activeTab === 'advanced' && (
+          <div className="animate-fadeIn space-y-6">
+            <div className="p-3 bg-purple-500/10 border border-purple-500/30 rounded-xl text-purple-300 text-xs font-mono flex items-center justify-between flex-wrap gap-2">
+              <span className="font-bold">🎙️ PAGE 4: AI VOICE DISTRESS, WEBAUDIO SCREAM SHIELD & EVIDENCE VAULT</span>
+              <span className="text-[11px] bg-purple-500/20 px-2 py-0.5 rounded border border-purple-500/40">ACOUSTIC & SENSOR SUITE</span>
+            </div>
 
-            {activeTab === 'safehavens' && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+              <AudioThreatSimulator onTriggerSOS={handleTriggerWearableSOS} />
+              <CrowdDensityHeatmapVisualizer />
+              <AudioSpectrumVisualizer onAutoTriggerSOS={handleTriggerWearableSOS} />
+              <SurakshaCopilot onNavigateToHaven={handleNavigateToHaven} onSelectVehicle={setSelectedVehicleId} />
+              <WhatsAppBotBridge activeVehicle={vehicles.find((v) => v.id === selectedVehicleId)} />
+              <BLESmartRing onTriggerSOS={handleTriggerWearableSOS} />
+              <VoiceDistressListener onAutoTriggerSOS={handleTriggerWearableSOS} />
+              <MunicipalAnalytics />
+              <PinkCompanion />
+              <OfflineMeshRelay />
+              <EvidenceVault />
+              <CommunitySafetyAudit />
+            </div>
+          </div>
+        )}
+
+        {/* PAGE 5: Safe Havens Radar (Full Width 12 Cols) */}
+        {activeTab === 'safehavens' && (
+          <div className="animate-fadeIn space-y-6">
+            <div className="p-3 bg-amber-500/10 border border-amber-500/30 rounded-xl text-amber-300 text-xs font-mono flex items-center justify-between flex-wrap gap-2">
+              <span className="font-bold">📡 PAGE 5: 24/7 SAFE HAVENS RADAR, PINK POLICE BOOTHS & HOSPITALS</span>
+              <span className="text-[11px] bg-amber-500/20 px-2 py-0.5 rounded border border-amber-500/40">48 HAVENS MAPPED</span>
+            </div>
+
+            <div className="w-full">
               <SafeHavenRadar
                 safeHavens={safeHavens}
                 onNavigateToHaven={handleNavigateToHaven}
               />
-            )}
+            </div>
+          </div>
+        )}
 
-            {activeTab === 'authority' && (
+        {/* PAGE 6: Police 112 PCR Control Room (Full Width 12 Cols) */}
+        {activeTab === 'authority' && (
+          <div className="animate-fadeIn space-y-6">
+            <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-xl text-red-300 text-xs font-mono flex items-center justify-between flex-wrap gap-2">
+              <span className="font-bold">🚨 PAGE 6: DELHI POLICE 112 CONTROL ROOM & PINK PATROL DISPATCH</span>
+              <span className="text-[11px] bg-red-500/20 px-2 py-0.5 rounded border border-red-500/40">LIVE 112 QUEUE</span>
+            </div>
+
+            <div className="w-full">
               <AuthorityDashboard
                 activeAlerts={activeAlerts}
                 onUpdateAlertStatus={handleUpdateAlertStatus}
               />
-            )}
+            </div>
           </div>
-
-        </div>
+        )}
 
       </main>
 

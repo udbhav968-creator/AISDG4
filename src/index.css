@@ -9,11 +9,26 @@
   }
 }
 
+/* Page Transition & Smooth Animation Utilities */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
 /* 
   MASTER LEAFLET TILE FIX: 
-  Force ALL map containers, tile layers, tile images, and panes 
-  to have a dark background (#09090b / #18181b). 
-  This guarantees the map NEVER turns light gray (#ddd) even if tile networks fail or lag.
+  Force ALL map containers & tiles to have a dark background (#09090b / #18181b). 
+  Guarantees map NEVER turns light gray (#ddd) even if tile networks lag.
 */
 .leaflet-container,
 .leaflet-pane,
@@ -32,7 +47,6 @@
   z-index: 0 !important;
 }
 
-/* Ensure missing or broken map tiles display dark fallback instead of white/gray */
 .leaflet-tile {
   filter: brightness(0.85) contrast(1.15) saturate(1.2);
   background-color: #18181b !important;
@@ -40,6 +54,37 @@
 
 .leaflet-tile-loaded {
   background-color: #09090b !important;
+}
+
+/* Vibrant Page Color Identity Utility Classes */
+.theme-cyan-border {
+  border-color: rgba(6, 182, 212, 0.4);
+  box-shadow: 0 8px 30px -6px rgba(6, 182, 212, 0.15);
+}
+
+.theme-emerald-border {
+  border-color: rgba(16, 185, 129, 0.4);
+  box-shadow: 0 8px 30px -6px rgba(16, 185, 129, 0.15);
+}
+
+.theme-pink-border {
+  border-color: rgba(236, 72, 153, 0.4);
+  box-shadow: 0 8px 30px -6px rgba(236, 72, 153, 0.15);
+}
+
+.theme-purple-border {
+  border-color: rgba(168, 85, 247, 0.4);
+  box-shadow: 0 8px 30px -6px rgba(168, 85, 247, 0.15);
+}
+
+.theme-amber-border {
+  border-color: rgba(245, 158, 11, 0.4);
+  box-shadow: 0 8px 30px -6px rgba(245, 158, 11, 0.15);
+}
+
+.theme-red-border {
+  border-color: rgba(239, 68, 68, 0.4);
+  box-shadow: 0 8px 30px -6px rgba(239, 68, 68, 0.15);
 }
 
 /* Glassmorphism & Smooth Scrolling */
@@ -53,7 +98,7 @@ html {
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(63, 63, 70, 0.45);
   box-shadow: 0 12px 36px -8px rgba(0, 0, 0, 0.65);
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .glass-panel:hover {
