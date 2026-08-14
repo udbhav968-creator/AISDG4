@@ -53,7 +53,15 @@ export default function App() {
   const [mapCenter, setMapCenter] = useState([28.6105, 77.2185]);
   const [activeAlert, setActiveAlert] = useState(null);
 
-  // --- REST API Initial Live Fetching --- //
+  // Dynamic Background Texture Class based on activeTab
+  const pageTextureClass = 
+    activeTab === 'transit' ? 'bg-page-transit' :
+    activeTab === 'routes' ? 'bg-page-routes' :
+    activeTab === 'suite50' ? 'bg-page-suite50' :
+    activeTab === 'advanced' ? 'bg-page-advanced' :
+    activeTab === 'safehavens' ? 'bg-page-safehavens' : 'bg-page-authority';
+
+  // REST API Initial Live Fetching
   useEffect(() => {
     async function loadLiveData() {
       setIsLoadingApi(true);
@@ -75,9 +83,7 @@ export default function App() {
     loadLiveData();
   }, []);
 
-  // --- Handlers & Simulators --- //
-
-  // PS-B06 Simulator 1: Route Deviation
+  // Simulators
   const handleSimulateBusDeviation = (vehicleId = 'cab-shared-942') => {
     setVehicles((prev) =>
       prev.map((v) => {
@@ -99,7 +105,6 @@ export default function App() {
     setIsSOSModalOpen(true);
   };
 
-  // PS-B06 Simulator 2: Prolonged Stop
   const handleSimulateCabStop = (vehicleId = 'cab-shared-942') => {
     setVehicles((prev) =>
       prev.map((v) => {
@@ -120,7 +125,6 @@ export default function App() {
     setIsSOSModalOpen(true);
   };
 
-  // PS-B07 Simulator: Dynamic Streetlight Outage & Auto-Reroute
   const handleSimulateBlackout = () => {
     const nextBlackoutState = !isBlackoutSimulated;
     setIsBlackoutSimulated(nextBlackoutState);
@@ -169,7 +173,18 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col font-sans pb-48">
+    <div className={`min-h-screen text-zinc-100 flex flex-col font-sans pb-48 relative transition-colors duration-500 ${pageTextureClass}`}>
+      
+      {/* Background Watermark Typography (Microsoft/Amazon AWS Enterprise Identity) */}
+      <div className="absolute top-24 left-8 pointer-events-none select-none opacity-5 font-black text-6xl lg:text-8xl tracking-widest text-zinc-100 uppercase hidden md:block z-0">
+        {activeTab === 'transit' && '01 // GIS TRANSIT SAFETY'}
+        {activeTab === 'routes' && '02 // NIGHT ILLUMINATION'}
+        {activeTab === 'suite50' && '03 // 50 AI MODELS MATRIX'}
+        {activeTab === 'advanced' && '04 // ACOUSTIC SCREAM VAULT'}
+        {activeTab === 'safehavens' && '05 // SAFE HAVENS RADAR'}
+        {activeTab === 'authority' && '06 // POLICE 112 PCR DISPATCH'}
+      </div>
+
       {/* Top Multi-Page Navigation Header */}
       <Navbar
         activeTab={activeTab}
@@ -181,9 +196,9 @@ export default function App() {
       />
 
       {/* Main App Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 lg:px-8 py-6 space-y-6">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 lg:px-8 py-6 space-y-6 relative z-10">
         
-        {/* 6-Page Switcher Hero Banner (100% Clickable Page Selector) */}
+        {/* 6-Page Switcher Hero Banner */}
         <PageSwitcherHero activeTab={activeTab} setActiveTab={setActiveTab} />
 
         {/* Top Real-Time Telemetry Hero Banner */}
@@ -328,7 +343,7 @@ export default function App() {
 
       </main>
 
-      {/* Floating Evaluator Simulation Bar */}
+      {/* Inline Simulation Bar */}
       <SimulationBar
         onSimulateBusDeviation={() => handleSimulateBusDeviation('cab-shared-942')}
         onSimulateCabStop={() => handleSimulateCabStop('cab-shared-942')}
