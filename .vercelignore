@@ -1,0 +1,10 @@
+# Vercel Deployment Ignore File
+ai_engine/
+server/
+scratch/
+*.py
+*.joblib
+*.db
+*.zip
+*.pptx
+*.pdf
