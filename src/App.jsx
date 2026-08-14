@@ -23,6 +23,7 @@ import AudioSpectrumVisualizer from './components/AudioSpectrumVisualizer';
 import VehicleTelemetryChart from './components/VehicleTelemetryChart';
 import HiTech50Suite from './components/HiTech50Suite';
 import LiveStatsHero from './components/LiveStatsHero';
+import PageSwitcherHero from './components/PageSwitcherHero';
 import AudioThreatSimulator from './components/AudioThreatSimulator';
 import CrowdDensityHeatmapVisualizer from './components/CrowdDensityHeatmapVisualizer';
 
@@ -169,7 +170,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col font-sans pb-48">
-      {/* Top Multi-Page Navigation Bar */}
+      {/* Top Multi-Page Navigation Header */}
       <Navbar
         activeTab={activeTab}
         setActiveTab={setActiveTab}
@@ -182,10 +183,13 @@ export default function App() {
       {/* Main App Container */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 lg:px-8 py-6 space-y-6">
         
+        {/* 6-Page Switcher Hero Banner (100% Clickable Page Selector) */}
+        <PageSwitcherHero activeTab={activeTab} setActiveTab={setActiveTab} />
+
         {/* Top Real-Time Telemetry Hero Banner */}
         <LiveStatsHero />
 
-        {/* PAGE 1 (FRONT PAGE): PS-B06 Transit Tracker with GIS Map */}
+        {/* PAGE 1 (FRONT PAGE ONLY): PS-B06 Transit Tracker with GIS Map Engine */}
         {activeTab === 'transit' && (
           <div className="animate-fadeIn space-y-6">
             <div className="p-3 bg-cyan-500/10 border border-cyan-500/30 rounded-xl text-cyan-300 text-xs font-mono flex items-center justify-between flex-wrap gap-2">
@@ -229,12 +233,12 @@ export default function App() {
           </div>
         )}
 
-        {/* PAGE 2: PS-B07 Night Safe-Routes Engine (Full Width 12 Cols - No Map Interference) */}
+        {/* PAGE 2: PS-B07 Night Safe-Routes Engine (Full Width 12 Cols - Clean Standalone Page) */}
         {activeTab === 'routes' && (
           <div className="animate-fadeIn space-y-6">
             <div className="p-3 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-emerald-300 text-xs font-mono flex items-center justify-between flex-wrap gap-2">
               <span className="font-bold">🛣️ PAGE 2: PS-B07 DYNAMIC NIGHT SAFE-ROUTES ENGINE & ILLUMINATION INDEX</span>
-              <span className="text-[11px] bg-emerald-500/20 px-2 py-0.5 rounded border border-emerald-500/40">FULL-WIDTH CLEAN LAYOUT</span>
+              <span className="text-[11px] bg-emerald-500/20 px-2 py-0.5 rounded border border-emerald-500/40">FULL-WIDTH CLEAN PAGE</span>
             </div>
 
             <div className="w-full">
@@ -249,7 +253,7 @@ export default function App() {
           </div>
         )}
 
-        {/* PAGE 3: 🚀 50 Hi-Tech AI Models Suite (Full Width 12 Cols) */}
+        {/* PAGE 3: 🚀 50 Hi-Tech AI Models Suite (Full Width 12 Cols - Clean Standalone Page) */}
         {activeTab === 'suite50' && (
           <div className="animate-fadeIn space-y-6">
             <div className="p-3 bg-pink-500/10 border border-pink-500/30 rounded-xl text-pink-300 text-xs font-mono flex items-center justify-between flex-wrap gap-2">
@@ -263,7 +267,7 @@ export default function App() {
           </div>
         )}
 
-        {/* PAGE 4: AI Voice & Acoustic Vault (Full Width Grid - No Map Interference) */}
+        {/* PAGE 4: AI Voice & Acoustic Vault (Full Width Grid - Clean Standalone Page) */}
         {activeTab === 'advanced' && (
           <div className="animate-fadeIn space-y-6">
             <div className="p-3 bg-purple-500/10 border border-purple-500/30 rounded-xl text-purple-300 text-xs font-mono flex items-center justify-between flex-wrap gap-2">
@@ -288,7 +292,7 @@ export default function App() {
           </div>
         )}
 
-        {/* PAGE 5: Safe Havens Radar (Full Width 12 Cols) */}
+        {/* PAGE 5: Safe Havens Radar (Full Width 12 Cols - Clean Standalone Page) */}
         {activeTab === 'safehavens' && (
           <div className="animate-fadeIn space-y-6">
             <div className="p-3 bg-amber-500/10 border border-amber-500/30 rounded-xl text-amber-300 text-xs font-mono flex items-center justify-between flex-wrap gap-2">
@@ -305,7 +309,7 @@ export default function App() {
           </div>
         )}
 
-        {/* PAGE 6: Police 112 PCR Control Room (Full Width 12 Cols) */}
+        {/* PAGE 6: Police 112 PCR Control Room (Full Width 12 Cols - Clean Standalone Page) */}
         {activeTab === 'authority' && (
           <div className="animate-fadeIn space-y-6">
             <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-xl text-red-300 text-xs font-mono flex items-center justify-between flex-wrap gap-2">
