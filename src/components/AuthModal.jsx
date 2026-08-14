@@ -46,14 +46,27 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess }) {
 
   const modalContent = (
     <div 
-      className="fixed inset-0 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md"
-      style={{ zIndex: 999999, isolation: 'isolate' }}
+      className="fixed inset-0 p-4"
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        width: '100vw',
+        height: '100vh',
+        backgroundColor: 'rgba(5, 5, 8, 0.95)',
+        zIndex: 99999999,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}
     >
       <div className="relative w-full max-w-md bg-zinc-900 border border-zinc-700 rounded-2xl p-6 shadow-2xl space-y-4 text-zinc-100">
         
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-1.5 bg-zinc-800 hover:bg-zinc-700 rounded-lg text-zinc-400 hover:text-white transition"
+          className="absolute top-4 right-4 p-1.5 bg-zinc-800 hover:bg-zinc-700 rounded-lg text-zinc-400 hover:text-white transition cursor-pointer"
         >
           <X className="w-4 h-4" />
         </button>
@@ -144,7 +157,7 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess }) {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2.5 bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 text-white font-extrabold text-xs rounded-xl shadow-lg shadow-pink-600/30 transition mt-2"
+            className="w-full py-2.5 bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 text-white font-extrabold text-xs rounded-xl shadow-lg shadow-pink-600/30 transition mt-2 cursor-pointer"
           >
             {loading ? 'Authenticating...' : isRegister ? 'Register Account' : 'Sign In'}
           </button>
@@ -154,7 +167,7 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess }) {
           {isRegister ? 'Already have an account?' : "Don't have an account?"}{' '}
           <button
             onClick={() => setIsRegister(!isRegister)}
-            className="text-pink-400 hover:underline font-bold"
+            className="text-pink-400 hover:underline font-bold cursor-pointer"
           >
             {isRegister ? 'Sign In' : 'Create Account'}
           </button>

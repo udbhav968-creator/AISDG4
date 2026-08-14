@@ -37,8 +37,21 @@ export default function StealthCalculator({ isOpen, onClose, onSecretSOSTrigger 
 
   const modalContent = (
     <div 
-      className="fixed inset-0 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md"
-      style={{ zIndex: 999999, isolation: 'isolate' }}
+      className="fixed inset-0 p-4"
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        width: '100vw',
+        height: '100vh',
+        backgroundColor: 'rgba(5, 5, 8, 0.95)',
+        zIndex: 99999999,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}
     >
       <div className="relative w-full max-w-xs bg-zinc-900 border border-zinc-800 rounded-2xl p-4 shadow-2xl space-y-3 text-zinc-100">
         
@@ -48,7 +61,7 @@ export default function StealthCalculator({ isOpen, onClose, onSecretSOSTrigger 
             <span>Standard Calculator</span>
           </div>
 
-          <button onClick={onClose} className="text-zinc-500 hover:text-white">
+          <button onClick={onClose} className="text-zinc-500 hover:text-white cursor-pointer">
             <X className="w-4 h-4" />
           </button>
         </div>
@@ -62,7 +75,7 @@ export default function StealthCalculator({ isOpen, onClose, onSecretSOSTrigger 
             <button
               key={btn}
               onClick={() => handleBtnClick(btn)}
-              className="p-3 bg-zinc-800 hover:bg-zinc-700 active:scale-95 text-white rounded-xl shadow transition"
+              className="p-3 bg-zinc-800 hover:bg-zinc-700 active:scale-95 text-white rounded-xl shadow transition cursor-pointer"
             >
               {btn}
             </button>

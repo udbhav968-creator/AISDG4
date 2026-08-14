@@ -42,15 +42,28 @@ export default function DiscreetSOSModal({ isOpen, onClose, onAlertDispatched, a
 
   const modalContent = (
     <div 
-      className="fixed inset-0 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md"
-      style={{ zIndex: 999999, isolation: 'isolate' }}
+      className="fixed inset-0 p-4"
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        width: '100vw',
+        height: '100vh',
+        backgroundColor: 'rgba(5, 5, 8, 0.95)',
+        zIndex: 99999999,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}
     >
       <div className="relative w-full max-w-md bg-zinc-900 border border-zinc-700 rounded-2xl p-6 shadow-2xl space-y-4 text-zinc-100">
         
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-1.5 bg-zinc-800 hover:bg-zinc-700 rounded-lg text-zinc-400 hover:text-white transition"
+          className="absolute top-4 right-4 p-1.5 bg-zinc-800 hover:bg-zinc-700 rounded-lg text-zinc-400 hover:text-white transition cursor-pointer"
         >
           <X className="w-4 h-4" />
         </button>
@@ -81,14 +94,14 @@ export default function DiscreetSOSModal({ isOpen, onClose, onAlertDispatched, a
             <div className="grid grid-cols-2 gap-2 pt-2">
               <button
                 onClick={onClose}
-                className="py-2.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 font-bold text-xs rounded-xl"
+                className="py-2.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 font-bold text-xs rounded-xl cursor-pointer"
               >
                 Cancel False Alert
               </button>
 
               <button
                 onClick={handleConfirmDispatch}
-                className="py-2.5 bg-red-600 hover:bg-red-500 text-white font-extrabold text-xs rounded-xl shadow-lg shadow-red-600/30"
+                className="py-2.5 bg-red-600 hover:bg-red-500 text-white font-extrabold text-xs rounded-xl shadow-lg shadow-red-600/30 cursor-pointer"
               >
                 Dispatch 112 PCR Now
               </button>
@@ -115,7 +128,7 @@ export default function DiscreetSOSModal({ isOpen, onClose, onAlertDispatched, a
 
             <button
               onClick={onClose}
-              className="w-full py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs rounded-xl shadow"
+              className="w-full py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs rounded-xl shadow cursor-pointer"
             >
               Close & Monitor Incident
             </button>
