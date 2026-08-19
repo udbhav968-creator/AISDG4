@@ -10,5 +10,8 @@ export default defineConfig({
   },
   build: {
     sourcemap: false
+  },
+  esbuild: {
+    sourcemap: false
   }
 })
