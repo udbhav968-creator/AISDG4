@@ -56,6 +56,8 @@ class AIServerHandler(http.server.SimpleHTTPRequestHandler):
             self.wfile.write(json.dumps({"error": "Unknown AI Endpoint"}).encode())
 
 if __name__ == "__main__":
-    print(f"🤖 [Python AI Engine] Microservice running on http://localhost:{PORT}")
+    import sys
+    sys.stdout.reconfigure(encoding='utf-8')
+    print(f"[Python AI Engine] Microservice running on http://localhost:{PORT}")
     with socketserver.TCPServer(("", PORT), AIServerHandler) as httpd:
         httpd.serve_forever()

@@ -39,7 +39,7 @@ class SafetyRiskModel:
             dlat = math.radians(lat2 - lat1)
             dlon = math.radians(lon2 - lon1)
             a = math.sin(dlat/2)**2 + math.cos(math.radians(lat1)) * math.cos(math.radians(lat2)) * math.sin(dlon/2)**2
-            c = 2 * Math.atan2(math.sqrt(a), math.sqrt(1 - a)) if hasattr(math, 'atan2') else 2 * math.atan2(math.sqrt(a), math.sqrt(1-a))
+            c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
             dist_m = 6371000 * c
             if dist_m < min_dist:
                 min_dist = dist_m

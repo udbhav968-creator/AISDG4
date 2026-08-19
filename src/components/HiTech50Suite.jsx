@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Cpu, Play, CheckCircle2, RefreshCw, BarChart2, Database, Shield, Zap, Filter, Layers, Download, Terminal } from 'lucide-react';
 import NextGen30Suite from './NextGen30Suite';
 import MLOpsDashboard from './MLOpsDashboard';
+import SHAPExplainabilityVisualizer from './SHAPExplainabilityVisualizer';
 
 const AI_MODELS_LIST = [
   // 1-10: ML Core & Route Risk Predictors
@@ -113,6 +114,9 @@ export default function HiTech50Suite() {
       
       {/* MLOps 3.0 Dashboard Section */}
       <MLOpsDashboard />
+
+      {/* SHAP Model Explainability Visualizer Section */}
+      <SHAPExplainabilityVisualizer />
 
       {/* 50 AI Models Interactive Training Visualizer Banner */}
       <div className="p-6 rounded-2xl glass-panel border border-pink-500/30 bg-zinc-950/80 relative overflow-hidden">

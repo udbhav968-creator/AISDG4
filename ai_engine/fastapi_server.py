@@ -11,12 +11,14 @@ from typing import List, Optional
 # MLOps Modules Import
 from mlops.drift_detector import DataDriftDetector
 from mlops.model_registry import MLOpsModelRegistry
+from mlops.explainability import SHAPModelExplainer
+from mlops.feature_store import OnlineFeatureStore
 
 # FastAPI App Setup
 app = FastAPI(
     title="SurakshaOne Full-Stack MLOps & AI Microservices Engine",
-    version="3.2.0",
-    description="Production-grade MLOps pipeline, Data Drift Detection, Model Registry, SQLite persistent database, Google Maps geocoding, and Gemini 1.5 Safety Copilot."
+    version="4.0.0",
+    description="Production-grade MLOps pipeline, SHAP Explainability, Feature Store, KS Data Drift Detection, Model Registry, SQLite persistent database, Google Maps geocoding, and Gemini 1.5 Safety Copilot."
 )
 
 # Enable CORS for local Vite dev and production Vercel
@@ -33,8 +35,10 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_PATH = os.path.join(BASE_DIR, "suraksha_database.db")
 MODELS_DIR = os.path.join(BASE_DIR, "models")
 
-# MLOps Registry & Drift Detector Initialization
+# MLOps Registry, Feature Store & Explainer Initialization
 mlops_registry = MLOpsModelRegistry()
+shap_explainer = SHAPModelExplainer()
+feature_store = OnlineFeatureStore()
 
 # Generate Baseline Dataset for Drift Checking
 np.random.seed(42)
@@ -63,7 +67,7 @@ try:
         scaler_model = joblib.load(scaler_path)
     if os.path.exists(iso_path):
         iso_forest_model = joblib.load(iso_path)
-    print("[FastAPI Engine] MLOps Registry, SQLite DB & Serialized ML Models loaded successfully!")
+    print("[FastAPI Engine] MLOps Registry, Feature Store, SHAP Explainer, SQLite DB & Serialized ML Models loaded successfully!")
 except Exception as e:
     print(f"[FastAPI Engine] Warning: {e}. Fallback logic enabled.")
 
@@ -108,7 +112,7 @@ class BiometricAnalysisRequest(BaseModel):
 def read_root():
     return {
         "status": "ONLINE",
-        "system": "SurakshaOne MLOps & AI Microservice Engine 3.2",
+        "system": "SurakshaOne MLOps Architecture 4.0",
         "mlops_active_version": mlops_registry.get_status()["active_version"],
         "database": "SQLite Persistent Storage",
         "models_loaded": rf_model is not None
@@ -240,7 +244,6 @@ def get_mlops_metrics():
 
 @app.get("/api/v1/mlops/drift-check")
 def run_mlops_drift_check():
-    # Simulate live dataset
     live_df = pd.DataFrame({
         'lighting_percent': np.random.uniform(0, 100, 500),
         'crowd_level': np.random.uniform(0, 100, 500),
@@ -252,6 +255,28 @@ def run_mlops_drift_check():
     return {
         "success": True,
         "drift_analysis": drift_result
+    }
+
+@app.post("/api/v1/mlops/shap-explain")
+def get_shap_explainability(req: FeaturePredictionRequest):
+    sample = {
+        'lighting_percent': req.lighting_percent,
+        'crowd_level': req.crowd_level,
+        'police_proximity_m': req.police_proximity_m,
+        'open_stores_count': req.open_stores_count,
+        'historical_crime_rate': req.historical_crime_rate
+    }
+    explanation = shap_explainer.explain_prediction(sample)
+    return {
+        "success": True,
+        "explanation": explanation
+    }
+
+@app.get("/api/v1/mlops/feature-store")
+def get_online_feature_store(entity_id: str = "corridor-south-delhi"):
+    return {
+        "success": True,
+        "data": feature_store.get_online_features(entity_id)
     }
 
 @app.post("/api/v1/mlops/trigger-retrain")

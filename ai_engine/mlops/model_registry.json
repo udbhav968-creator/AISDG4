@@ -1,0 +1,34 @@
+{
+  "active_version": "v3.2.0-production",
+  "active_model_name": "RandomForestRegressor-DelhiSafety-v3",
+  "deployment_strategy": "BLUE_GREEN_CANARY",
+  "total_inferences_served": 142850,
+  "avg_inference_latency_ms": 3.8,
+  "last_drift_check_score": 0.042,
+  "models_history": [
+    {
+      "version": "v3.2.0-production",
+      "r2_score": 0.9731,
+      "mae": 2.14,
+      "trained_at": "2026-08-17 23:25:00",
+      "dataset_samples": 25000,
+      "status": "PRODUCTION_ACTIVE"
+    },
+    {
+      "version": "v3.1.0-staging",
+      "r2_score": 0.9526,
+      "mae": 2.85,
+      "trained_at": "2026-08-14 17:11:00",
+      "dataset_samples": 30000,
+      "status": "STAGING"
+    },
+    {
+      "version": "v3.0.0-archive",
+      "r2_score": 0.921,
+      "mae": 3.4,
+      "trained_at": "2026-08-12 11:00:00",
+      "dataset_samples": 10000,
+      "status": "ARCHIVED"
+    }
+  ]
+}
