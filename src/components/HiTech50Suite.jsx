@@ -3,6 +3,7 @@ import { Cpu, Play, CheckCircle2, RefreshCw, BarChart2, Database, Shield, Zap, F
 import NextGen30Suite from './NextGen30Suite';
 import MLOpsDashboard from './MLOpsDashboard';
 import SHAPExplainabilityVisualizer from './SHAPExplainabilityVisualizer';
+import Phase5EnterpriseSuite from './Phase5EnterpriseSuite';
 
 const AI_MODELS_LIST = [
   // 1-10: ML Core & Route Risk Predictors
@@ -238,6 +239,11 @@ export default function HiTech50Suite() {
       {/* PHASE 3: 25 NEXT-GEN COMMERCIAL INNOVATIONS ROADMAP SUITE */}
       <div className="pt-6 border-t border-zinc-800">
         <NextGen30Suite />
+      </div>
+
+      {/* PHASE 5: 25 GLOBAL ENTERPRISE MASTER PLAN INNOVATIONS SUITE */}
+      <div className="pt-6 border-t border-zinc-800">
+        <Phase5EnterpriseSuite />
       </div>
 
     </div>
